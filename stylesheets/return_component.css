@@ -1,0 +1,21 @@
+.return {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    background: #777;
+    opacity: 0.8;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    border-radius: 50%;
+    display: none;
+    z-index: 1000;
+}
+
+.return a {
+    text-decoration: none;
+    color: #fff;
+    line-height: 70px;
+    font-size: 24px;
+    font-weight: 600;
+}

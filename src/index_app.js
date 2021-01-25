@@ -4,13 +4,15 @@ class IndexApp extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = props;
+        this.state = {};
     }
 
     render() {
         return (
-            <div>
-                这是视频网站
+            <div className="homePageApp">
+                <HeaderComponent showDocMenu={this.state.showDocMenu}/>
+                <HomeView />
+                <FooterComponent />
             </div>
         );
 

@@ -1,0 +1,367 @@
+.container {
+    position: relative;
+}
+
+.navbar-default {
+    background: #ffffff;
+    border: 0;
+    height: 65px;
+}
+
+.navbar-brand > img {
+    width: 104px;
+    height: 40px;
+    margin-top: 0px;
+    margin-left: 15px;
+}
+.english,.chinese{height:65px;line-height: 65px;color:#777;text-decoration: none;padding:0 15px}
+.english:hover,.chinese:hover{text-decoration: none;color:#00a1df}
+
+.navbar-toggle {
+    width: 50px;
+    height: 45px;
+}
+
+.navbar-toggle .icon-bar {
+    width: 28px;
+}
+
+.navbar-nav {
+    float: none;
+}
+
+.navbar-nav > li > a {
+    padding: 10px 30px;
+    /* font-weight: 600; */
+    font-size: 20px;
+}
+
+.navbar-nav li.first {
+    padding-left: 20px;
+}
+
+.navbar-nav li.two {
+    padding-left: 20px;
+}
+
+.navbar-nav li.two a {
+    padding-left: 20px;
+    display: inline-block;
+    height: 65px;
+    width: 65px;
+    border: 1px solid #797979;
+    border-radius: 50%;
+}
+
+.personPic {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    padding-right: 0;
+    border: none;
+    margin-top: 10px;
+}
+
+.personPic img {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    margin-left:-10px;
+}
+
+.navbar-nav li.two a:nth-child(1) {
+
+    padding: 0px 7px;
+    border: 0;
+    border-radius: 0;
+
+}
+
+.navbar-nav li.first a {
+    float: left;
+    padding: 3px 7px;
+    font-size: 18px;
+    color: #777777;
+}
+.navbar-nav li.three  {
+    padding-left:0;
+}
+.navbar-nav li.three a {
+    float: left;
+    padding: 3px 7px;
+    font-size: 18px;
+    color: #777777;
+}
+
+.navbar-nav li.first a:hover {
+    color: #00a1df
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    color: #00a1df;
+    background: none;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #00a1df;
+}
+
+.navbar-collapse {
+    border-top: 0;
+    margin-top: 0;
+}
+
+.navbar-default .navbar-collapse {
+    background: #fff;
+}
+@media (max-width :768px){
+
+    .personPic img {
+        margin-left:5px;
+    }
+}
+@media (min-width: 768px) {
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {
+        margin-top: 0;
+    }
+
+    .navbar-brand > img {
+        width: 50px;
+        height: 40px
+    }
+
+    .navbar-default .navbar-brand {
+        margin-top: 0;
+    }
+
+    .navbar-nav {
+        height: 65px;
+        padding-left: 0;
+    }
+
+    .navbar-nav > li {
+        height: 65px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 22px 14px;
+        color: #777777;
+    }
+
+    .navbar-nav li.first {
+        padding-left: 0px;
+    }
+    .navbar-nav li.three {
+        padding-left: 0px;
+    }
+
+    .navbar-nav li.two {
+        padding-left: 23px;
+    }
+
+    .navbar-nav li.first a {
+        float: left;
+        padding: 22px 4px;
+        font-size: 18px;
+        color: #777777;
+    }
+
+    .navbar-nav li.first a:hover {
+        color: #00a1df
+    }
+    .navbar-nav li.three a {
+        float: left;
+        padding: 22px 4px;
+        font-size: 18px;
+        color: #777777;
+    }
+
+    .navbar-nav li.three a:hover {
+        color: #00a1df
+    }
+
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        height: 65px;
+        padding-left: 15px;
+    }
+
+    .navbar-nav > li {
+        height: 65px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 22px 30px;
+        color: #777777;
+    }
+
+    .navbar-nav li.two {
+        padding-left: 0px;
+    }
+
+}
+
+@media (min-width: 1200px) {
+    .navbar-nav {
+        height: 65px;
+        /* padding-left: 80px; */
+    }
+    .english,.chinese{height:65px;line-height: 65px;color:#777;text-decoration: none;padding:0 15px;}
+    .navbar-nav > li {
+        height: 65px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 22px 45px;
+        color: #777777;
+    }
+    .navbar-nav li.first {
+        padding-left: 0px;
+    }
+    .navbar-nav li.three {
+        padding-left: 0px;
+    }
+
+    .navbar-nav li.two {
+        padding-left: 0;
+    }
+
+    .navbar-nav li.first a {
+        padding: 22px 7px;
+    }
+
+    .navbar-nav li.first a:hover {
+        color: #00a1df;
+    }
+    .navbar-nav li.three a {
+        padding: 22px 7px;
+    }
+
+    .navbar-nav li.three a:hover {
+        color: #00a1df;
+    }
+
+
+}
+
+/*用户信息卡*/
+.wCard {
+    width: 217px;
+    height: 204px;
+    position: absolute;
+    z-index: 9999;
+    margin-left: 10px;
+    right: 20px;
+    display: none;
+
+}
+
+.e {
+    width: 18px;
+    height: 18px;
+    background: #eef3f9;
+    transform: rotate(45deg);
+    margin-left: 180px;
+
+}
+
+.card {
+    width: 217px;
+    height: 204px;
+    margin-top: -9px;
+    background: #eef3f9;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.4);
+    padding-top: 22px;
+}
+
+.p_1 {
+
+    margin-left: 21px;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+}
+
+.p_2 {
+    margin-left: 21px;
+    line-height: 33px;
+    font-size: 10px;
+    color: #666;
+    cursor: default;
+    margin-top:5px;
+}
+
+.p_3 {
+    width: 178px;
+    height: 43px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    overflow: hidden;
+    line-height: 43px;
+    font-size: 10px;
+    margin: 5px auto 0;
+    color: #666;
+}
+
+.p_3L, .p_3R {
+    /*width: 62px;*/
+    cursor: pointer;
+}
+
+.p_3L:hover {
+    color: #00a1df;
+}
+
+.p_3R:hover {
+    color: #00a1df;
+}
+
+.p_4 {
+    width: 178px;
+    height: 60px;
+    line-height: 60px;
+    color: #4098f9;
+    font-size: 12px;
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+
+}
+
+.p_4:hover {
+    text-decoration: none;
+}
+
+.active{
+    color: #00a1df;
+}
+
+.two .name {
+    color: #777;
+    font-size: 16px;
+}
+
+.name:hover {
+    cursor: pointer;
+}
+
+.dropdown .wCard .card > p {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown .wCard .card > p:hover {
+    color: #00a1df;
+}
