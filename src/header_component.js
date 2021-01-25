@@ -35,7 +35,7 @@ class HeaderComponent extends React.Component {
     }
 
     toMyApp() {
-        window.location.href = "/console.html";
+        window.location.href = "/storage.html";
     }
 
     closeAllMenu(e) {

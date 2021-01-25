@@ -73,7 +73,7 @@ class HomePageApp extends React.Component {
                 window.location.href = lastPage;
                 sessionStorage.removeItem("lastPage");
             } else {
-                window.location.href = "/console.html";
+                window.location.href = "/storage.html";
             }
         }).catch( ({msg}) => {
             that.setState({err: msg});
