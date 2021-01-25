@@ -38,7 +38,7 @@ class HeaderComponent extends React.Component {
         window.location.href = "/console.html";
     }
 
-    closeAllMenu() {
+    closeAllMenu(e) {
         this.setState(() => ({
             showDocMenu: false,
             showIconMenu: false
@@ -51,10 +51,11 @@ class HeaderComponent extends React.Component {
         }));
     }
 
-    closeMenu() {
-        this.setState(() => ({
-            showDocMenu: false
-        }));
+    closeMenu(e) {
+
+        // this.setState(() => ({
+        //     showDocMenu: false
+        // }));
     }
 
     clickIconMenu() {
@@ -99,6 +100,11 @@ class HeaderComponent extends React.Component {
         // });
     }
 
+    forwardPage = e => {
+        const url = e.target.getAttribute("data");
+        window.location.href = url;
+    }
+
     renderTenantInfo() {
         const {token, showIconMenu} = this.state;
         return token ? (
@@ -136,35 +142,34 @@ class HeaderComponent extends React.Component {
     render() {
         const {showDocMenu} = this.state
         return (
-            <header className="navbar navbar-default navbar-fixed-top" onBlur={this.closeAllMenu}>
+            <header className="navbar navbar-default navbar-fixed-top">
                 <div className="container container-fluid">
                     <div className="navbar-header">
                         <a href="/" className="navbar-brand">
                             <img src="images/logo_with_word.png"/>
                         </a>
                     </div>
-
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav navbar-left">
-                            <li><a href="/" className="a_href">首页</a></li>
+                            <li><a href="/video-storage" className="a_href">首页</a></li>
                             <li><a href="#" className="a_href">直播</a></li>
-                            <li className="dropdown" onClick={this.clickMenu} onBlur={this.closeMenu}>
+                            <li className="dropdown" onClick={this.clickMenu}>
                                 <a className="dropdown-toggle a_href" href="#">
                                     资源库 <span className="caret"/>
                                 </a>
                                 <ul className="wCard"
                                     style={{"display": showDocMenu ? "block" : "none", "margin-top": "6px"}}>
                                     <div className="e"/>
-                                    <div className="card">
-                                        <p className="p_2"> 热度推荐</p>
-                                        <p className="p_2"> 电视剧</p>
-                                        <p className="p_3"> 动漫</p>
-                                        <p className="p_2"> 小视频</p>
+                                    <div className="card" onClick={this.forwardPage}>
+                                        <p className="p_2" data = "/video-storage/storage.html?type=hot"> 热度推荐</p>
+                                        <p className="p_2" data = "/video-storage/storage.html?type=movie"> 电影</p>
+                                        <p className="p_2" data = "/video-storage/storage.html?type=tv"> 电视剧</p>
+                                        <p className="p_3" data = "/video-storage/storage.html?type=comic"> 动漫</p>
                                     </div>
                                 </ul>
                             </li>
-                            <li><a href="#" className="a_href">管理工具</a></li>
-                            <li><a href="#" className="a_href">关于团队</a></li>
+                            <li><a href="/video-storage/tools.html" className="a_href">管理工具</a></li>
+                            <li><a href="/video-storage/about_team.html" className="a_href">关于团队</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             {this.renderTenantInfo()}
