@@ -71,26 +71,32 @@ class HeaderComponent extends React.Component {
 
     cancellation() {
         let that = this;
-        Req({
-            method: "DELETE",
-            url: "/king-core/aip/tenant/cancellation",
-        }).then(() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("who");
-            that.setState(() => ({
-                token: null,
-                tenant: null,
-            }));
-        }).catch(({code, message}) => {
-            if (401 === code) {
-                that.setState(() => ({
-                    token: null,
-                    tenant: null,
-                }));
-            } else {
-                alert(message);
-            }
-        });
+        localStorage.removeItem("token");
+        localStorage.removeItem("who");
+        that.setState(() => ({
+            token: null,
+            tenant: null,
+        }));
+        // Req({
+        //     method: "DELETE",
+        //     url: "/king-core/aip/tenant/cancellation",
+        // }).then(() => {
+        //     localStorage.removeItem("token");
+        //     localStorage.removeItem("who");
+        //     that.setState(() => ({
+        //         token: null,
+        //         tenant: null,
+        //     }));
+        // }).catch(({code, message}) => {
+        //     if (401 === code) {
+        //         that.setState(() => ({
+        //             token: null,
+        //             tenant: null,
+        //         }));
+        //     } else {
+        //         alert(message);
+        //     }
+        // });
     }
 
     renderTenantInfo() {
@@ -105,24 +111,24 @@ class HeaderComponent extends React.Component {
                     </a>
                     <span href="#" className="name">afterloe</span>
                 </li>
-                <div className="wCard" style={{"display": showIconMenu? "block": "none"}}>
+                <div className="wCard" style={{"display": showIconMenu ? "block" : "none"}}>
                     <div className="e"></div>
                     <div className="card">
                         <p className="p_1"> afterloe</p>
-                        <p className="p_2"> 13266548013 </p>
+                        <p className="p_2"> V2 会员 </p>
                         <div className="p_3">
-                            <span className="fl p_3L " id="p_3L" onClick={this.toMyApp}>我的应用</span>
-                            <span className="p_3R " id="p_3R" style={{"margin-left":"65px"}}> 我的设备</span>
+                            <span className="fl p_3L " id="p_3L" onClick={this.toMyApp}>播放历史</span>
+                            <span className="p_3R " id="p_3R" style={{"margin-left": "65px"}}> 我的视频</span>
                         </div>
                         <div className="p_4">
-                            <span className="p_3R" onClick={this.cancellation}>退出</span>
+                            <span className="p_3R" onClick={this.cancellation}>退出登录</span>
                         </div>
                     </div>
                 </div>
             </span>
         ) : (
             <li className="first">
-                <a href="/login.html" className="a_href">登录</a>
+                <a href="./login.html" className="a_href">登录</a>
             </li>
         );
     }
@@ -141,22 +147,23 @@ class HeaderComponent extends React.Component {
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav navbar-left">
                             <li><a href="/" className="a_href">首页</a></li>
-                            <li><a href="#" className="a_href">产品演示</a></li>
-                            <li><a href="#" className="a_href">资源库</a></li>
+                            <li><a href="#" className="a_href">直播</a></li>
                             <li className="dropdown" onClick={this.clickMenu} onBlur={this.closeMenu}>
                                 <a className="dropdown-toggle a_href" href="#">
-                                    文档材料 <span className="caret"/>
+                                    资源库 <span className="caret"/>
                                 </a>
-                                <ul className="wCard" style={{"display": showDocMenu? "block": "none", "margin-top": "6px"}}>
-                                    <div className="e"></div>
+                                <ul className="wCard"
+                                    style={{"display": showDocMenu ? "block" : "none", "margin-top": "6px"}}>
+                                    <div className="e"/>
                                     <div className="card">
-                                        <p className="p_2"> 设计文档</p>
-                                        <p className="p_2"> 解决方案</p>
-                                        <p className="p_3"> 产品说明书</p>
-                                        <p className="p_2"> 关键技术参数</p>
+                                        <p className="p_2"> 热度推荐</p>
+                                        <p className="p_2"> 电视剧</p>
+                                        <p className="p_3"> 动漫</p>
+                                        <p className="p_2"> 小视频</p>
                                     </div>
                                 </ul>
                             </li>
+                            <li><a href="#" className="a_href">管理工具</a></li>
                             <li><a href="#" className="a_href">关于团队</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
