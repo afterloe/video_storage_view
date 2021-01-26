@@ -24,7 +24,7 @@ class HomeView extends React.Component {
                                         <img src="images/Light spot.png" alt=""/>
                                         <img src="images/personalise.png" alt=""/>
                                     </span>
-                                    <span>基于人工智能技术的视频推荐技术</span>
+                                    <span>基于人工智能技术的精准视频推荐</span>
                                     <span>
                                         <img src="images/line.png" alt=""/>
                                     </span>

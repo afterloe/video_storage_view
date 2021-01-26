@@ -141,6 +141,7 @@ class HeaderComponent extends React.Component {
 
     render() {
         const {showDocMenu} = this.state
+        const activeCode = this.props.acrive_code || 0;
         return (
             <header className="navbar navbar-default navbar-fixed-top">
                 <div className="container container-fluid">
@@ -151,9 +152,9 @@ class HeaderComponent extends React.Component {
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav navbar-left">
-                            <li><a href="/video-storage" className="a_href">首页</a></li>
-                            <li><a href="#" className="a_href">直播</a></li>
-                            <li className="dropdown" onClick={this.clickMenu}>
+                            <li className={0 === activeCode? "active": ""}><a href="/video-storage" className="a_href">首页</a></li>
+                            <li className={1 === activeCode? "active": ""}><a href="#" className="a_href">直播</a></li>
+                            <li className={2 === activeCode? "dropdown active": "dropdown"} onClick={this.clickMenu}>
                                 <a className="dropdown-toggle a_href" href="#">
                                     资源库 <span className="caret"/>
                                 </a>
@@ -168,8 +169,8 @@ class HeaderComponent extends React.Component {
                                     </div>
                                 </ul>
                             </li>
-                            <li><a href="/video-storage/tools.html" className="a_href">管理工具</a></li>
-                            <li><a href="/video-storage/about_team.html" className="a_href">关于团队</a></li>
+                            <li className={3 === activeCode? "active": ""}><a href="/video-storage/tools.html" className="a_href">管理工具</a></li>
+                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/about_team.html" className="a_href">关于团队</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             {this.renderTenantInfo()}
