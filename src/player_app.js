@@ -12,6 +12,7 @@ class PlayerVideoApp extends React.Component {
             <div>
                 <HeaderComponent acrive_code={2} showDocMenu={this.state.showDocMenu}/>
                 <PlayerVideoComponent />
+                <CommentComponent />
             </div>
         );
 

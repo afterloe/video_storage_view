@@ -57,9 +57,10 @@
 .recommend .item {
     background-color: #ffffff;
     border: #f0f0f0 solid .1rem;
+    border-radius: .35rem !important;
     margin: .5rem;
     display: inline-block;
-    width: 30%;
+    width: 32%;
     height: 15rem;
     overflow: hidden;
     vertical-align: bottom;
@@ -108,4 +109,11 @@
 
 .item .detail .bar {
     margin-top: 1rem;
+}
+
+.line {
+    display: block;
+    height: .3rem;
+    margin: 2rem 3.5rem 0.5rem 3.5rem;
+    background-color: #cccccc;
 }

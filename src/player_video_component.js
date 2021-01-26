@@ -88,6 +88,7 @@ class PlayerVideoComponent extends React.Component {
                         </div>
                     </div>
                 </div>
+                <span className="line"/>
             </main>
         );
 

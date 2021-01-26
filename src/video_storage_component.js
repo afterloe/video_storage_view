@@ -234,8 +234,6 @@ class StorageView extends React.Component {
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <small className="d-block text-right mt-3">
                     <ul className="pagination pull-right">
