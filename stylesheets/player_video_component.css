@@ -1,0 +1,88 @@
+.container {
+    color: #000000;
+    cursor: default;
+}
+
+.return_bar {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    margin-bottom: .8rem;
+}
+
+.return_bar .back_btn {
+    color: #6cc9ec;
+    cursor: pointer;
+}
+
+.return_bar .back_btn:hover {
+    color: #337ab7;
+}
+
+.return_bar .time {
+    font-weight: bold;
+}
+
+.video-describe {
+    margin-top: 1rem;
+}
+
+.video-describe .detail {
+    margin-bottom: .8rem;
+}
+
+.video-describe .detail span {
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.video-describe .detail .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.video-describe .describe {
+    color: #333333;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: .8rem;
+}
+
+.recommend {
+    margin-top: 1rem;
+    border: #a94442 solid .1rem;
+    border-radius: .35rem !important;
+    text-align: center;
+}
+
+.recommend .item {
+    background-color: #ffffff;
+    border: #f0f0f0 solid .1rem;
+    display: inline-block;
+    width: 30%;
+    height: 10rem;
+}
+
+.recommend .item .screenshot {
+    text-align: center;
+    width: 10rem;
+    display: inline-block;
+    align-items:center;
+    justify-content:center;
+}
+
+.screenshot img {
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:100%;
+}
+
+.recommend .item .detail {
+    display: inline-block;
+    width: 16rem;
+}
+
+.detail .describe p {
+    height: 3rem;
+    overflow: hidden;
+}
