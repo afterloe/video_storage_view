@@ -10,6 +10,17 @@ class StorageView extends React.Component {
             bg: bgColor[Math.round(Math.random() * 8)],
             target: getTarget("type") || "hot",
         };
+        this.playerVideo = this.playerVideo.bind(this);
+    }
+
+    playerVideo = e => {
+        // const url = e.target.getAttribute("data");
+        // if (null != url) {
+        //     window.location.href = url;
+        // } else {
+        //     // TODO
+        window.location.href = "/video-storage/player.html?uuid=5a9db40b-3b0e-4814-9489-831d0f4e389c";
+        // }
     }
 
     generatorTitle = target => {
@@ -107,7 +118,7 @@ class StorageView extends React.Component {
 
                     <div className="row">
                         <div className="col-lg-4">
-                            <div className="video">
+                            <div className="video" onClick={this.playerVideo}>
                                 <div className="title" style={{"background-color": bgColor[0]}}>
                                     送你一朵小红花
                                 </div>

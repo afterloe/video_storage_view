@@ -158,7 +158,7 @@ class HeaderComponent extends React.Component {
                             <li className={1 === activeCode? "active": ""}><a href="#" className="a_href">直播</a></li>
                             <li className={2 === activeCode? "dropdown active": "dropdown"} onClick={this.clickMenu}>
                                 <a className="dropdown-toggle a_href" href="#">
-                                    资源库 <span className="caret"/>
+                                    视频库 <span className="caret"/>
                                 </a>
                                 <ul className="wCard"
                                     style={{"display": showDocMenu ? "block" : "none", "margin-top": "6px"}}>
@@ -171,8 +171,9 @@ class HeaderComponent extends React.Component {
                                     </div>
                                 </ul>
                             </li>
-                            <li className={3 === activeCode? "active": ""}><a href="/video-storage/tools.html" className="a_href">管理工具</a></li>
-                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/about_team.html" className="a_href">关于团队</a></li>
+                            <li className={3 === activeCode? "active": ""}><a href="/video-storage/pics.html" className="a_href">图像库</a></li>
+                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/tools.html" className="a_href">在线小说</a></li>
+                            <li className={5 === activeCode? "active": ""}><a href="/video-storage/about_team.html" className="a_href">管理工具</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             {this.renderTenantInfo()}
