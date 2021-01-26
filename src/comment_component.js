@@ -13,7 +13,6 @@ class CommentComponent extends React.Component {
         return (
             <div className="container rounded">
                 <div className="text-muted pt-3 border-bottom border-gray rounded">
-
                     <div className="item">
                         <div className="bd-placeholder-img rounded"
                              style={{"background-color": bgColor[0]}}/>
@@ -29,7 +28,6 @@ class CommentComponent extends React.Component {
                     </div>
                 </div>
                 <div className="text-muted pt-3 border-bottom border-gray rounded">
-                    
                     <div className="item">
                         <div className="bd-placeholder-img rounded"
                              style={{"background-color": bgColor[0]}}/>
