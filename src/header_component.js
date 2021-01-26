@@ -102,7 +102,9 @@ class HeaderComponent extends React.Component {
 
     forwardPage = e => {
         const url = e.target.getAttribute("data");
-        window.location.href = url;
+        if (null != url) {
+            window.location.href = url;
+        }
     }
 
     renderTenantInfo() {

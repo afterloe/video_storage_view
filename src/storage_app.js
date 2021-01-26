@@ -9,8 +9,9 @@ class StorageApp extends React.Component {
 
     render() {
         return (
-            <div className="homePageApp">
+            <div>
                 <HeaderComponent acrive_code={2} showDocMenu={this.state.showDocMenu}/>
+                <StorageView />
             </div>
         );
 
