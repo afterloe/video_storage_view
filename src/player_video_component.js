@@ -43,13 +43,13 @@ class PlayerVideoComponent extends React.Component {
                         <div className="detail">
                             <div className="title">送你一朵小红花</div>
                             <div className="describe">
-                                <p>《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
-                                    的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
-                                    直面了每一个普通人都会面临的人生命题。</p>
-                                <div className="bar">
-                                    <span className="like">点赞数: 289598</span>
-                                    <span className="player-count">播放量: 289598</span>
-                                </div>
+                                《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                直面了每一个普通人都会面临的人生命题。
+                            </div>
+                            <div className="bar">
+                                <span className="like">点赞数: 289598</span>
+                                <span className="player-count">播放量: 289598</span>
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,13 @@ class PlayerVideoComponent extends React.Component {
                         <div className="detail">
                             <div className="title">送你一朵小红花</div>
                             <div className="describe">
-                                <p>《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
-                                    的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
-                                    直面了每一个普通人都会面临的人生命题。</p>
-                                <div className="bar">
-                                    <span className="like">点赞数: 289598</span>
-                                    <span className="player-count">播放量: 289598</span>
-                                </div>
+                                《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                直面了每一个普通人都会面临的人生命题。
+                            </div>
+                            <div className="bar">
+                                <span className="like">点赞数: 289598</span>
+                                <span className="player-count">播放量: 289598</span>
                             </div>
                         </div>
                     </div>
@@ -77,17 +77,16 @@ class PlayerVideoComponent extends React.Component {
                         <div className="detail">
                             <div className="title">送你一朵小红花</div>
                             <div className="describe">
-                                <p>《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
-                                    的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
-                                    直面了每一个普通人都会面临的人生命题。</p>
-                                <div className="bar">
-                                    <span className="like">点赞数: 289598</span>
-                                    <span className="player-count">播放量: 289598</span>
-                                </div>
+                                《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                直面了每一个普通人都会面临的人生命题。
+                            </div>
+                            <div className="bar">
+                                <span className="like">点赞数: 289598</span>
+                                <span className="player-count">播放量: 289598</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </main>
         );
