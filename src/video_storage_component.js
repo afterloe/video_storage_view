@@ -17,7 +17,7 @@ class StorageView extends React.Component {
             return (
                 <div className="lh-100">
                     <h4 className="storage-title">热度推荐</h4>
-                    <div style={{ height: "3rem", "line-height": "3rem"}}>
+                    <div style={{height: "3rem", "line-height": "3rem"}}>
                         <div className={"pull-left item-list"}>
                             <small>点播热度</small>
                             <small>评论数</small>
@@ -54,6 +54,47 @@ class StorageView extends React.Component {
         }
     }
 
+    clickPage = (event) => {
+        const clickNum = event.target.getAttribute("data-reflect") || 1;
+        // this.loadFormRemote(clickNum);
+    }
+
+    renderPage = (activeNum, docCount) => {
+        const html = [];
+        html.push(activeNum !== 1 ? (
+            <li>
+                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
+                    <span aria-hidden="true">&laquo;</span>
+                </span>
+            </li>
+        ) : (
+            <li className="disabled">
+                <span aria-label="Previous" data-reflect="1">
+                    <span aria-hidden="true">&laquo;</span>
+                </span>
+            </li>
+        ));
+        const end = docCount % 10 === 0 ? docCount / 10 : Math.ceil(docCount / 10);
+        const started = activeNum - 5 < 0 ? 1 : activeNum - 5;
+        for (let i = started; i <= end; i++) {
+            html.push(
+                <li className={i === activeNum ? "active" : ""}>
+                    <span className="rounded" data-reflect={i} onClick={this.clickPage}>{i}</span>
+                </li>
+            );
+        }
+        html.push(activeNum === end ? (<li className="disabled">
+            <span aria-label="Next" data-reflect={html.length - 1}>
+                <span aria-hidden="true">&raquo;</span>
+            </span>
+        </li>) : (<li>
+            <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
+                <span aria-hidden="true">&raquo;</span>
+            </span>
+        </li>));
+        return html;
+    }
+
     render = () => {
         const {bg, target} = this.state;
         return (
@@ -62,6 +103,134 @@ class StorageView extends React.Component {
                      style={{"background-color": bg}}>
                     {this.generatorTitle(target)}
                 </div>
+                <div className="my-3 p-3 bg-white rounded shadow-sm video-list">
+
+                    <div className="row">
+                        <div className="col-lg-4">
+                            <div className="video">
+                                <div className="title" style={{"background-color": bgColor[0]}}>
+                                    送你一朵小红花
+                                </div>
+                                <div className="detail">
+                                    <div className="screenshot">
+                                        <div className="last"/>
+                                        <div className="image">
+                                            <img src="/video-storage/images/img_1.png" alt="screenshot"/>
+                                        </div>
+                                        <div className="next"/>
+                                    </div>
+                                    <div className="describe">
+                                        《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                        的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                        直面了每一个普通人都会面临的人生命题。
+                                    </div>
+                                    <p className="update">
+                                        <span className="line"/>
+                                        <div className="func">
+                                            <small>点赞数: 289598</small>
+                                            <small>评论数: 289598</small>
+                                            <small>播放量: 289598</small>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="video">
+                                <div className="title">
+                                    送你一朵小红花
+                                </div>
+                                <div className="detail">
+                                    <div className="screenshot">
+                                        <div className="last"/>
+                                        <div className="image">
+                                            <img src="/video-storage/images/img_1.png" alt="screenshot"/>
+                                        </div>
+                                        <div className="next"/>
+                                    </div>
+                                    <div className="describe">
+                                        《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                        的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                        直面了每一个普通人都会面临的人生命题。
+                                    </div>
+                                    <p className="update">
+                                        <span className="line"/>
+                                        <div className="func">
+                                            <small>点赞数: 289598</small>
+                                            <small>评论数: 289598</small>
+                                            <small>播放量: 289598</small>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="video">
+                                <div className="title">
+                                    送你一朵小红花
+                                </div>
+                                <div className="detail">
+                                    <div className="screenshot">
+                                        <div className="last"/>
+                                        <div className="image">
+                                            <img src="/video-storage/images/img_1.png" alt="screenshot"/>
+                                        </div>
+                                        <div className="next"/>
+                                    </div>
+                                    <div className="describe">
+                                        《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                        的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                        直面了每一个普通人都会面临的人生命题。
+                                    </div>
+                                    <p className="update">
+                                        <span className="line"/>
+                                        <div className="func">
+                                            <small>点赞数: 289598</small>
+                                            <small>评论数: 289598</small>
+                                            <small>播放量: 289598</small>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="video">
+                                <div className="title">
+                                    送你一朵小红花
+                                </div>
+                                <div className="detail">
+                                    <div className="screenshot">
+                                        <div className="last"/>
+                                        <div className="image">
+                                            <img src="/video-storage/images/img_1.png" alt="screenshot"/>
+                                        </div>
+                                        <div className="next"/>
+                                    </div>
+                                    <div className="describe">
+                                        《送你一朵小红花》是由韩延执导，易烊千玺、刘浩存领衔主演，朱媛媛、高亚麟主演，夏雨特别出演，岳云鹏友情出演
+                                        的剧情片，于2020年12月31日上映。 该片围绕两个抗癌家庭的两组生活轨迹，讲述了一个温情的现实故事，思考和
+                                        直面了每一个普通人都会面临的人生命题。
+                                    </div>
+                                    <p className="update">
+                                        <span className="line"/>
+                                        <div className="func">
+                                            <small>点赞数: 289598</small>
+                                            <small>评论数: 289598</small>
+                                            <small>播放量: 289598</small>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <small className="d-block text-right mt-3">
+                    <ul className="pagination pull-right">
+                        {this.renderPage(1, 1)}
+                    </ul>
+                </small>
             </main>
         );
 
