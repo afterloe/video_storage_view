@@ -86,7 +86,7 @@ class ToolsApp extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <PageComponent activeNum={1} docCount={3} />
+                            <PageComponent position="pull-left" activeNum={1} docCount={3} />
                         </div>
                     </div>
                 </div>
