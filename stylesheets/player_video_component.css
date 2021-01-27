@@ -1,0 +1,119 @@
+.container {
+    color: #000000;
+    cursor: default;
+}
+
+.return_bar {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    margin-bottom: .8rem;
+    padding: .5rem;
+}
+
+.return_bar .back_btn {
+    color: #6cc9ec;
+    cursor: pointer;
+}
+
+.return_bar .back_btn:hover {
+    color: #337ab7;
+}
+
+.return_bar .time {
+    font-weight: bold;
+}
+
+.video-describe {
+    margin-top: 1rem;
+}
+
+.video-describe .detail {
+    margin-bottom: .8rem;
+}
+
+.video-describe .detail span {
+    display: inline-block;
+    margin-right: 2rem;
+}
+
+.video-describe .detail .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.video-describe .describe {
+    color: #333333;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: .8rem;
+}
+
+.recommend {
+    margin-top: 1rem;
+    border-radius: .35rem !important;
+    text-align: center;
+}
+
+.recommend .item {
+    background-color: #ffffff;
+    border: #f0f0f0 solid .1rem;
+    border-radius: .35rem !important;
+    margin: .5rem;
+    display: inline-block;
+    width: 32%;
+    height: 15rem;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.recommend .item .screenshot {
+    text-align: center;
+    display: block;
+    width: 10rem;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 4rem;
+    left: 1rem;
+}
+
+.screenshot img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.recommend .item .detail {
+    display: inline-block;
+    width: 20rem;
+    position: relative;
+    top: -8rem;
+    left: 5rem;
+}
+
+.item .detail {
+    text-align: left;
+}
+
+.item .detail .title {
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+.item .detail .describe {
+    padding-top: 1rem;
+    overflow: hidden;
+    height: 8rem;
+}
+
+.item .detail .bar {
+    margin-top: 1rem;
+}
+
+.line {
+    display: block;
+    height: .3rem;
+    margin: 2rem 3.5rem 0.5rem 3.5rem;
+    background-color: #cccccc;
+}
