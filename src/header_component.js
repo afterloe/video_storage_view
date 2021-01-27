@@ -172,7 +172,7 @@ class HeaderComponent extends React.Component {
                                 </ul>
                             </li>
                             <li className={3 === activeCode? "active": ""}><a href="/video-storage/pics.html" className="a_href">图像库</a></li>
-                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/tools.html" className="a_href">在线小说</a></li>
+                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/books.html" className="a_href">在线小说</a></li>
                             <li className={5 === activeCode? "active": ""}><a href="/video-storage/about_team.html" className="a_href">管理工具</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
