@@ -1,0 +1,70 @@
+.tools_app {
+    color: #000000;
+}
+
+.tools_app .left_control {
+    cursor: default;
+    border-right: #cccccc solid .1rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #e0e0e0;
+    top: 0;
+    width: 25%;
+    text-align: center;
+    background-color: #212121;
+}
+
+.left_control .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 5rem 0 10rem 0;
+}
+
+.left_control .line {
+    display: block;
+    height: .3rem;
+    margin: 3.5rem 3.5rem 2.5rem 3.5rem;
+    background-color: #e0e0e0;
+}
+
+.left_control .item {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 1rem auto;
+}
+
+.left_control .item:hover {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.left_control .item.active {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.tools_app .main {
+    padding-left: 25%;
+    cursor: default;
+}
+
+.main .top {
+    background-color: #3f51b5;
+    color: #ffffff;
+    height: 11rem;
+}
+
+.top .title {
+    padding: 3rem 0 0 3rem;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.bar div {
+    display: inline-block;
+    margin-right: 1.5rem;
+    padding-left: 1.5rem;
+    cursor: pointer;
+}
