@@ -12,6 +12,7 @@ class StorageApp extends React.Component {
             <div>
                 <HeaderComponent acrive_code={2} showDocMenu={this.state.showDocMenu}/>
                 <StorageView />
+                <PageComponent position="pull-right" activeNum={1} docCount={1}/>
             </div>
         );
 

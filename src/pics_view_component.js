@@ -16,42 +16,6 @@ class PicViewComponent extends React.Component {
 
     }
 
-    renderPage = (activeNum, docCount) => {
-        const html = [];
-        html.push(activeNum !== 1 ? (
-            <li>
-                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
-                    <span aria-hidden="true">&laquo;</span>
-                </span>
-            </li>
-        ) : (
-            <li className="disabled">
-                <span aria-label="Previous" data-reflect="1">
-                    <span aria-hidden="true">&laquo;</span>
-                </span>
-            </li>
-        ));
-        const end = docCount % 10 === 0 ? docCount / 10 : Math.ceil(docCount / 10);
-        const started = activeNum - 5 < 0 ? 1 : activeNum - 5;
-        for (let i = started; i <= end; i++) {
-            html.push(
-                <li className={i === activeNum ? "active" : ""}>
-                    <span className="rounded" data-reflect={i} onClick={this.clickPage}>{i}</span>
-                </li>
-            );
-        }
-        html.push(activeNum === end ? (<li className="disabled">
-            <span aria-label="Next" data-reflect={html.length - 1}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
-        </li>) : (<li>
-            <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
-        </li>));
-        return html;
-    }
-
     render = () => {
 
         const {bg} = this.state;
@@ -81,13 +45,7 @@ class PicViewComponent extends React.Component {
                         </select>
                     </span>
                 </div>
-                <div className="row">
-                    <ul className="pagination pull-right" style={{}}>
-                        {this.renderPage(1, 1)}
-                    </ul>
-                </div>
                 <div className="row pic-list">
-                    <span className="line"/>
                     <div className="pic-group">
                         <picture>
                             <img src="/video-storage/images/img_1.png" alt="图片" onClick={this.enlargePic}/>
@@ -108,11 +66,6 @@ class PicViewComponent extends React.Component {
                         </picture>
                     </div>
                     <span className="line"/>
-                </div>
-                <div className="row">
-                    <ul className="pagination pull-right" style={{}}>
-                        {this.renderPage(1, 1)}
-                    </ul>
                 </div>
             </main>
         );

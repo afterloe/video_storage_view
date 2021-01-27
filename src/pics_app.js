@@ -11,6 +11,7 @@ class PicStorageApp extends React.Component {
             <div>
                 <HeaderComponent acrive_code={3} showDocMenu={this.state.showDocMenu}/>
                 <PicViewComponent />
+                <PageComponent position="pull-right" activeNum={1} docCount={1}/>
             </div>
         );
     }

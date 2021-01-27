@@ -68,42 +68,6 @@ class StorageView extends React.Component {
         // this.loadFormRemote(clickNum);
     }
 
-    renderPage = (activeNum, docCount) => {
-        const html = [];
-        html.push(activeNum !== 1 ? (
-            <li>
-                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
-                    <span aria-hidden="true">&laquo;</span>
-                </span>
-            </li>
-        ) : (
-            <li className="disabled">
-                <span aria-label="Previous" data-reflect="1">
-                    <span aria-hidden="true">&laquo;</span>
-                </span>
-            </li>
-        ));
-        const end = docCount % 10 === 0 ? docCount / 10 : Math.ceil(docCount / 10);
-        const started = activeNum - 5 < 0 ? 1 : activeNum - 5;
-        for (let i = started; i <= end; i++) {
-            html.push(
-                <li className={i === activeNum ? "active" : ""}>
-                    <span className="rounded" data-reflect={i} onClick={this.clickPage}>{i}</span>
-                </li>
-            );
-        }
-        html.push(activeNum === end ? (<li className="disabled">
-            <span aria-label="Next" data-reflect={html.length - 1}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
-        </li>) : (<li>
-            <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
-        </li>));
-        return html;
-    }
-
     render = () => {
         const {bg, target} = this.state;
         return (
@@ -233,11 +197,6 @@ class StorageView extends React.Component {
                         </div>
                     </div>
                 </div>
-                <small className="d-block text-right mt-3">
-                    <ul className="pagination pull-right">
-                        {this.renderPage(1, 1)}
-                    </ul>
-                </small>
             </main>
         );
 
