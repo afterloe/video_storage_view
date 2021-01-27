@@ -38,28 +38,55 @@ class ToolsApp extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="main">
+                    <div className="view">
                         <div className="title">
-                            <div>序号</div>
-                            <div>名称</div>
-                            <div>类型</div>
-                            <div>大小</div>
-                            <div>时长</div>
-                            <div>操作</div>
+                            <div className="col-md-1"> </div>
+                            <div className="col-md-3">名称</div>
+                            <div className="col-md-2">类型</div>
+                            <div className="col-md-2">大小</div>
+                            <div className="col-md-2">时长</div>
+                            <div className="col-md-2">操作</div>
                         </div>
                         <div className="values">
-                            <div className="">
-                                <div>1</div>
-                                <div>1</div>
-                                <div>1</div>
-                                <div>1</div>
-                                <div>1</div>
-                                <div>
+                            <div className="value">
+                                <div className="col-md-1">1</div>
+                                <div className="col-md-3">送一朵小红花</div>
+                                <div className="col-md-2">video/mp4</div>
+                                <div className="col-md-2">1932 MB</div>
+                                <div className="col-md-2">104.22 分钟</div>
+                                <div className="col-md-2">
                                     <span>删除</span>
                                     <span>修改</span>
                                     <span>下架</span>
                                 </div>
                             </div>
+                            <div className="value">
+                                <div className="col-md-1">2</div>
+                                <div className="col-md-3">送一朵小红花</div>
+                                <div className="col-md-2">video/mp4</div>
+                                <div className="col-md-2">1932 MB</div>
+                                <div className="col-md-2">104.22 分钟</div>
+                                <div className="col-md-2">
+                                    <span>删除</span>
+                                    <span>修改</span>
+                                    <span>下架</span>
+                                </div>
+                            </div>
+                            <div className="value">
+                                <div className="col-md-1">3</div>
+                                <div className="col-md-3">送一朵小红花</div>
+                                <div className="col-md-2">video/mp4</div>
+                                <div className="col-md-2">1932 MB</div>
+                                <div className="col-md-2">104.22 分钟</div>
+                                <div className="col-md-2">
+                                    <span>删除</span>
+                                    <span>修改</span>
+                                    <span>下架</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <PageComponent activeNum={1} docCount={3} />
                         </div>
                     </div>
                 </div>
