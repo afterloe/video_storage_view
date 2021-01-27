@@ -12,6 +12,7 @@ class BooksApp extends React.Component {
             <div>
                 <HeaderComponent acrive_code={4} />
                 <BooksViewComponent />
+                <PageComponent position="pull-right" activeNum={1} docCount={1}/>
             </div>
         );
 

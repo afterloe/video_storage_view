@@ -30,31 +30,6 @@
     width: 100%;
 }
 
-/**
-pag
- */
-.rounded {
-    border-radius: .25rem !important;
-}
-
-.pagination.pull-right {
-    padding-right: 1.5rem;
-}
-
-.pagination.pull-right > li > span {
-    border: none;
-    font-size: 1.8rem;
-}
-
-.pagination.pull-right > .active > span {
-    background-color: #fcfcfc;
-    color: #31708f;
-}
-
-/*
-end
- */
-
 .line {
     display: block;
     height: .3rem;
