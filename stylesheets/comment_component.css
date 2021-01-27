@@ -71,9 +71,10 @@ b, strong {
     margin: 0 2rem;
 }
 
-.text-muted .item:nth-child(3) {
+.text-muted .item:nth-child(2) {
     margin: 4px auto;
     cursor: pointer;
+    line-height: 2;
 }
 
 .text-muted .item:last-child {

@@ -18,12 +18,12 @@ class CommentComponent extends React.Component {
                              style={{"background-color": bgColor[0]}}/>
                         <strong className="d-block text-gray-dark">这是评论</strong>
                     </div>
-                    <div className="col-md-8 item">
+                    <div className="col-md-6 item">
                         <div className="small">
                             这是很好的一部电影
                         </div>
                     </div>
-                    <div className="col-md-2 item">
+                    <div className="col-md-3 item">
                         <span className="click_link">2020-01-30 11:44:55</span>
                     </div>
                 </div>
@@ -33,12 +33,12 @@ class CommentComponent extends React.Component {
                              style={{"background-color": bgColor[0]}}/>
                         <strong className="d-block text-gray-dark">这是昵称</strong>
                     </div>
-                    <div className="col-md-8 item">
+                    <div className="col-md-6 item">
                         <div className="small">
                             这是很好的一部电影
                         </div>
                     </div>
-                    <div className="col-md-2 item">
+                    <div className="col-md-3 item">
                         <span className="click_link">2020-01-30 11:44:55</span>
                     </div>
                 </div>
