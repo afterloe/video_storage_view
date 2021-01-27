@@ -13,6 +13,8 @@
 
 "use strict";
 
+const bgColor = ["#009eff", "#2c88d8", "#427ed0", "#6967c1", "#9a61ba", "#b268b8", "#d974ba", "#e672b4", "#f58dbf", "#f2f2f2"];
+
 const cleanArray = actual => {
     const newArray = [];
     for (let i = 0; i < actual.length; i++) {
