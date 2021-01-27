@@ -17,7 +17,6 @@ class PicViewComponent extends React.Component {
     }
 
     render = () => {
-
         const {bg} = this.state;
 
         return (
