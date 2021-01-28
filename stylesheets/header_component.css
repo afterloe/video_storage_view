@@ -47,8 +47,8 @@
 .navbar-nav li.two a {
     padding-left: 20px;
     display: inline-block;
-    height: 65px;
-    width: 65px;
+    height: 4.8rem;
+    width: 4.8rem;
     border: 1px solid #797979;
     border-radius: 50%;
 }
@@ -349,6 +349,7 @@
 }
 
 .two .name {
+    overflow: hidden;
     color: #777;
     font-size: 16px;
 }
