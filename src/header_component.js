@@ -33,7 +33,7 @@ class HeaderComponent extends React.Component {
     }
 
     toMyApp() {
-        window.location.href = "/storage.html";
+        window.location.href = "/video-storage/personal.html";
     }
 
     closeAllMenu(e) {
@@ -76,26 +76,24 @@ class HeaderComponent extends React.Component {
             token: null,
             tenant: null,
         }));
-        // Req({
-        //     method: "DELETE",
-        //     url: "/king-core/aip/tenant/cancellation",
-        // }).then(() => {
-        //     localStorage.removeItem("token");
-        //     localStorage.removeItem("who");
-        //     that.setState(() => ({
-        //         token: null,
-        //         tenant: null,
-        //     }));
-        // }).catch(({code, message}) => {
-        //     if (401 === code) {
-        //         that.setState(() => ({
-        //             token: null,
-        //             tenant: null,
-        //         }));
-        //     } else {
-        //         alert(message);
-        //     }
-        // });
+        Req({
+            method: "DELETE",
+            url: "/backend/aip/user/cancellation",
+        }).then(() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("who");
+            that.setState(() => ({
+                token: null,
+                tenant: null,
+            }));
+        }).catch(({code, message}) => {
+            if (401 === code) {
+                that.setState(() => ({
+                    token: null,
+                    tenant: null,
+                }));
+            }
+        });
     }
 
     forwardPage = e => {
