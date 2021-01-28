@@ -15,7 +15,7 @@ class StorageView extends React.Component {
         this.loadVideoList()
     }
 
-    loadVideoList(page = 0) {
+    loadVideoList(page = 1) {
         const that = this;
         const {target = "hot", activeNum = 1, count = 25} = that.state;
         Req({
@@ -24,7 +24,7 @@ class StorageView extends React.Component {
         }).then(value => {
             that.setState({
                 list: value.list,
-                activeNum: page || 0,
+                activeNum: page || 1,
                 docCount: value.count,
             })
         }).catch(({code, message}) => {
