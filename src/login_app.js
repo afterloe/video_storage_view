@@ -63,8 +63,8 @@ class HomePageApp extends React.Component {
         let that = this;
         Req({
             method: "POST",
-            url: "/king-core/signin",
-            data: {email, password: pwd}
+            url: "/backend/signin",
+            data: {email, passwd: pwd}
         }).then(data => {
             localStorage.setItem("token", data.token);
             localStorage.setItem("who", JSON.stringify(data.tenant));
@@ -73,7 +73,7 @@ class HomePageApp extends React.Component {
                 window.location.href = lastPage;
                 sessionStorage.removeItem("lastPage");
             } else {
-                window.location.href = "/storage.html";
+                window.location.href = "/video-storage/index.html";
             }
         }).catch( ({msg}) => {
             that.setState({err: msg});
