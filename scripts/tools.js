@@ -85,7 +85,7 @@ const strToHex = str => {
 const checkErrorCode = code => {
     if (401 === code) {
         sessionStorage.setItem("lastPage", location.toString());
-        window.location.href = "/login.html";
+        window.location.href = "/video-storage/login.html";
     }
 };
 

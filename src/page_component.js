@@ -5,7 +5,7 @@ class PageComponent extends React.Component {
         super(props);
     }
 
-    renderPage = (activeNum, docCount) => {
+    renderPage = (activeNum, docCount, sumCount = 10) => {
         const html = [];
         html.push(activeNum !== 1 ? (
             <li>
@@ -20,8 +20,8 @@ class PageComponent extends React.Component {
                 </span>
             </li>
         ));
-        const end = docCount % 10 === 0 ? docCount / 10 : Math.ceil(docCount / 10);
-        const started = activeNum - 5 < 0 ? 1 : activeNum - 5;
+        const end = docCount % sumCount === 0 ? docCount / sumCount : Math.ceil(docCount / sumCount);
+        const started = activeNum - sumCount / 2 < 0 ? 1 : activeNum - sumCount / 2;
         for (let i = started; i <= end; i++) {
             html.push(
                 <li className={i === activeNum ? "active" : ""}>
@@ -46,11 +46,11 @@ class PageComponent extends React.Component {
     }
 
     render = () => {
-        const {position = "", activeNum = 1, docCount = 1} = this.props;
+        const {position = "", activeNum = 1, docCount = 1, sumCount = 10} = this.props;
         return (
             <div className="container">
                 <ul className={"pagination " + position}>
-                    {this.renderPage(activeNum, docCount)}
+                    {this.renderPage(activeNum, docCount, sumCount)}
                 </ul>
             </div>
         );

@@ -4,7 +4,7 @@
 
 .tools_app .left_control {
     cursor: default;
-    border-right: #cccccc solid .1rem;
+    border-right: #222222 solid .1rem;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -52,14 +52,14 @@
 .main .top {
     background-color: #3f51b5;
     color: #ffffff;
-    height: 11rem;
+    height: 15rem;
 }
 
 .top .title {
     padding: 3rem 0 0 3rem;
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: 5rem;
 }
 
 .bar div {
@@ -68,3 +68,44 @@
     padding-left: 1.5rem;
     cursor: pointer;
 }
+
+.view {
+    text-align: center;
+}
+
+.view .title {
+    font-weight: bold;
+    height: 5rem;
+    font-size: 1.85rem;
+    line-height: 5rem;
+}
+
+.view .values .value {
+    font-size: 1.5rem;
+    line-height: 4.8rem;
+    height: 5rem;
+    margin: 1.5rem auto;
+}
+
+.value:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.value .col-md-2 > span {
+    display: inline-block;
+    margin-right: .5rem;
+    cursor: pointer;
+}
+
+.value .col-md-2 > span:last-child {
+    margin-right: 0;
+}
+
+.value .col-md-2 > span:hover {
+    color: #00a1df;
+}
+
+/*.main .title > div {*/
+/*    display: inline-block;*/
+/*}*/

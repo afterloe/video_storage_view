@@ -2,17 +2,17 @@
     border-radius: .25rem !important;
 }
 
-.pagination.pull-right {
+.pagination {
     padding-right: 1.5rem;
 }
 
-.pagination.pull-right > li > span {
+.pagination > li > span {
     border: none;
     font-size: 1.8rem;
     cursor: pointer;
 }
 
-.pagination.pull-right > .active > span {
+.pagination > .active > span {
     background-color: #fcfcfc;
     color: #31708f;
     cursor: pointer;

@@ -5,7 +5,7 @@ class HeaderComponent extends React.Component {
         super(props);
         this.state = {
             token: localStorage.getItem("token"),
-            tenant: localStorage.getItem("who"),
+            user: JSON.parse(localStorage.getItem("who")),
             showDocMenu: false,
             showIconMenu: false,
         };
@@ -21,21 +21,19 @@ class HeaderComponent extends React.Component {
         let that = this;
         Req({
             method: "GET",
-            url: "/king-core/aip/tenant/ping",
+            url: "/backend/aip/user/ping",
         }).catch(({code, message}) => {
             if (401 === code) {
                 that.setState(() => ({
                     token: null,
-                    tenant: null,
+                    user: null,
                 }));
-            } else {
-                // alert(message);
             }
         });
     }
 
     toMyApp() {
-        window.location.href = "/storage.html";
+        window.location.href = "/video-storage/personal.html";
     }
 
     closeAllMenu(e) {
@@ -78,26 +76,24 @@ class HeaderComponent extends React.Component {
             token: null,
             tenant: null,
         }));
-        // Req({
-        //     method: "DELETE",
-        //     url: "/king-core/aip/tenant/cancellation",
-        // }).then(() => {
-        //     localStorage.removeItem("token");
-        //     localStorage.removeItem("who");
-        //     that.setState(() => ({
-        //         token: null,
-        //         tenant: null,
-        //     }));
-        // }).catch(({code, message}) => {
-        //     if (401 === code) {
-        //         that.setState(() => ({
-        //             token: null,
-        //             tenant: null,
-        //         }));
-        //     } else {
-        //         alert(message);
-        //     }
-        // });
+        Req({
+            method: "DELETE",
+            url: "/backend/aip/user/cancellation",
+        }).then(() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("who");
+            that.setState(() => ({
+                token: null,
+                tenant: null,
+            }));
+        }).catch(({code, message}) => {
+            if (401 === code) {
+                that.setState(() => ({
+                    token: null,
+                    tenant: null,
+                }));
+            }
+        });
     }
 
     forwardPage = e => {
@@ -108,21 +104,21 @@ class HeaderComponent extends React.Component {
     }
 
     renderTenantInfo() {
-        const {token, showIconMenu} = this.state;
+        const {token, user = {}, showIconMenu} = this.state;
         return token ? (
             <span>
                 <li className="two" onClick={this.clickIconMenu} onBlur={this.closeIconMenu}>
                     <a href="#" className="personPic">
                         <img className="img-circle" alt="140x140"
-                             src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNzQxYmFjNzc4NCB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE3NDFiYWM3Nzg0Ij48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzQuNSI+MTQweDE0MDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="/>
+                             src={"/video-store/" + user.avatar}/>
 
                     </a>
-                    <span href="#" className="name">afterloe</span>
+                    <span className="name">{user.nickname}</span>
                 </li>
                 <div className="wCard" style={{"display": showIconMenu ? "block" : "none"}}>
                     <div className="e"></div>
                     <div className="card">
-                        <p className="p_1"> afterloe</p>
+                        <p className="p_1"> {user.mail}</p>
                         <p className="p_2"> V2 会员 </p>
                         <div className="p_3">
                             <span className="fl p_3L " id="p_3L" onClick={this.toMyApp}>播放历史</span>
@@ -148,7 +144,7 @@ class HeaderComponent extends React.Component {
             <header className="navbar navbar-default navbar-fixed-top">
                 <div className="container container-fluid">
                     <div className="navbar-header">
-                        <a href="/" className="navbar-brand">
+                        <a href="/video-storage" className="navbar-brand">
                             <img src="images/logo_with_word.png"/>
                         </a>
                     </div>

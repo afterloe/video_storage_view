@@ -11,6 +11,27 @@ class StorageView extends React.Component {
         this.playerVideo = this.playerVideo.bind(this);
     }
 
+    componentDidMount() {
+        this.loadVideoList()
+    }
+
+    loadVideoList(page = 1) {
+        const that = this;
+        const {target = "hot", activeNum = 1, count = 25} = that.state;
+        Req({
+            method: "GET",
+            url: `/backend/aip/video/list?type=${target}&page=${page}&count=${count}`,
+        }).then(value => {
+            that.setState({
+                list: value.list,
+                activeNum: page || 1,
+                docCount: value.count,
+            })
+        }).catch(({code, message}) => {
+            checkErrorCode(code);
+        });
+    }
+
     playerVideo = e => {
         // const url = e.target.getAttribute("data");
         // if (null != url) {

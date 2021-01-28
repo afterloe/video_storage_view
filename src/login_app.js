@@ -21,7 +21,7 @@ class HomePageApp extends React.Component {
     }
 
     checkEmail() {
-        let {email} = this.state;
+        const {email} = this.state;
         if (!this.mailRegex.test(email)) {
             this.setState(() => ({
                 err: "请输入正确的邮箱!"
@@ -34,7 +34,7 @@ class HomePageApp extends React.Component {
     }
 
     checkPwd() {
-        let {pwd} = this.state;
+        const {pwd} = this.state;
         if ("" === pwd) {
             this.setState(() => ({
                 err: "请输入密码!"
@@ -47,7 +47,7 @@ class HomePageApp extends React.Component {
     }
 
     signIn() {
-        let {email, pwd, err} = this.state;
+        const {email, pwd, err} = this.state;
         if (!this.mailRegex.test(email)) {
             this.setState(() => ({
                 err: "请输入正确的邮箱!"
@@ -63,17 +63,17 @@ class HomePageApp extends React.Component {
         let that = this;
         Req({
             method: "POST",
-            url: "/king-core/signin",
-            data: {email, password: pwd}
+            url: "/backend/signin",
+            data: {email, passwd: pwd}
         }).then(data => {
             localStorage.setItem("token", data.token);
-            localStorage.setItem("who", JSON.stringify(data.tenant));
+            localStorage.setItem("who", JSON.stringify(data.user));
             let lastPage = sessionStorage.getItem("lastPage");
             if (lastPage !== "" && null !== lastPage) {
                 window.location.href = lastPage;
                 sessionStorage.removeItem("lastPage");
             } else {
-                window.location.href = "/storage.html";
+                window.location.href = "/video-storage/index.html";
             }
         }).catch( ({msg}) => {
             that.setState({err: msg});
