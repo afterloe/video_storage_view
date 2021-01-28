@@ -21,15 +21,13 @@ class HeaderComponent extends React.Component {
         let that = this;
         Req({
             method: "GET",
-            url: "/king-core/aip/tenant/ping",
+            url: "/backend/aip/user/ping",
         }).catch(({code, message}) => {
             if (401 === code) {
                 that.setState(() => ({
                     token: null,
                     tenant: null,
                 }));
-            } else {
-                // alert(message);
             }
         });
     }
