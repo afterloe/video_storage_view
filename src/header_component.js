@@ -148,7 +148,7 @@ class HeaderComponent extends React.Component {
             <header className="navbar navbar-default navbar-fixed-top">
                 <div className="container container-fluid">
                     <div className="navbar-header">
-                        <a href="/" className="navbar-brand">
+                        <a href="/video-storage" className="navbar-brand">
                             <img src="images/logo_with_word.png"/>
                         </a>
                     </div>

@@ -12,6 +12,10 @@ class ToolsApp extends React.Component {
             <div className="tools_app">
                 <div className="left_control">
                     <div>
+                        <div className="title">{"<- "}返回首页</div>
+                    </div>
+                    <div className="line"/>
+                    <div>
                         <div className="title">直播</div>
                         <div className="item">直播管理</div>
                     </div>
@@ -40,7 +44,7 @@ class ToolsApp extends React.Component {
                     </div>
                     <div className="view">
                         <div className="title">
-                            <div className="col-md-1"> </div>
+                            <div className="col-md-1"></div>
                             <div className="col-md-3">名称</div>
                             <div className="col-md-2">类型</div>
                             <div className="col-md-2">大小</div>
@@ -86,7 +90,7 @@ class ToolsApp extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <PageComponent position="pull-left" activeNum={1} docCount={3} />
+                            <PageComponent position="pull-left" activeNum={1} docCount={3}/>
                         </div>
                     </div>
                 </div>
