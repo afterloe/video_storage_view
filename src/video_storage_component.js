@@ -28,6 +28,7 @@ class StorageView extends React.Component {
                 docCount: value.count,
             })
         }).catch(({code, message}) => {
+            console.log(message);
             checkErrorCode(code);
         });
     }

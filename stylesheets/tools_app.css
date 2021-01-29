@@ -7,6 +7,7 @@
     border-right: #222222 solid .1rem;
     position: absolute;
     left: 0;
+    border-radius: .55rem !important;
     bottom: 0;
     color: #e0e0e0;
     top: 0;
@@ -18,7 +19,7 @@
 .left_control .title {
     font-size: 2rem;
     font-weight: bold;
-    margin: 5rem 0 10rem 0;
+    margin: 5rem 0 5rem 0;
 }
 
 .left_control .line {
@@ -44,14 +45,32 @@
     font-weight: bold;
 }
 
+.left_control .bottom-view {
+    position: absolute;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    border-radius: .55rem !important;
+    background-color: #424242;
+}
+
+
+
+
+
+
 .tools_app .main {
     padding-left: 25%;
     cursor: default;
 }
 
 .main .top {
-    background-color: #3f51b5;
+    background-color: #263238;
     color: #ffffff;
+    border-radius: .55rem !important;
+    margin-bottom: 5rem;
     height: 15rem;
 }
 
@@ -80,30 +99,35 @@
     line-height: 5rem;
 }
 
+.view .values {
+
+}
+
 .view .values .value {
     font-size: 1.5rem;
+    border-radius: .65rem !important;
     line-height: 4.8rem;
     height: 5rem;
     margin: 1.5rem auto;
 }
 
 .value:hover {
-    background-color: #f0f0f0;
+    background-color: #cfd8dc;
     cursor: pointer;
 }
 
-.value .col-md-2 > span {
+.value .options > span {
     display: inline-block;
     margin-right: .5rem;
     cursor: pointer;
 }
 
-.value .col-md-2 > span:last-child {
+.value .options > span:last-child {
     margin-right: 0;
 }
 
-.value .col-md-2 > span:hover {
-    color: #00a1df;
+.value .options > span:hover {
+    color: #455A64;
 }
 
 /*.main .title > div {*/

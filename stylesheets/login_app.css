@@ -69,7 +69,7 @@ body {
     height: 37px;
     line-height: 40px;
     font-weight: 500;
-    font-family: "微软雅黑";
+    font-family: "微软雅黑", serif;
     outline: none;
     text-align: center;
 }
@@ -82,7 +82,7 @@ body {
 }
 
 .form-group:nth-child(1) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .form-group:nth-child(2) {
