@@ -108,11 +108,6 @@ class HeaderComponent extends React.Component {
         return token ? (
             <span>
                 <li className="two" onClick={this.clickIconMenu} onBlur={this.closeIconMenu}>
-                    <a href="#" className="personPic">
-                        <img className="img-circle" alt="140x140"
-                             src={"/video-store/" + user.avatar}/>
-
-                    </a>
                     <span className="name">{user.nickname}</span>
                 </li>
                 <div className="wCard" style={{"display": showIconMenu ? "block" : "none"}}>
