@@ -30,6 +30,11 @@ class HeaderComponent extends React.Component {
                 }));
             }
         });
+
+        Req({
+            method: "GET",
+            url: "/backend/dictionary/video/type?dictionaryType=video_storage",
+        }).then(value => that.setState({videoStorage: value}));
     }
 
     toMyApp() {
@@ -133,7 +138,7 @@ class HeaderComponent extends React.Component {
     }
 
     render() {
-        const {showDocMenu} = this.state
+        const {showDocMenu, videoStorage = []} = this.state
         const activeCode = this.props.acrive_code || 0;
         return (
             <header className="navbar navbar-default navbar-fixed-top">
@@ -145,9 +150,10 @@ class HeaderComponent extends React.Component {
                     </div>
                     <div className="collapse navbar-collapse">
                         <ul className="nav navbar-nav navbar-left">
-                            <li className={0 === activeCode? "active": ""}><a href="/video-storage" className="a_href">首页</a></li>
-                            <li className={1 === activeCode? "active": ""}><a href="#" className="a_href">直播</a></li>
-                            <li className={2 === activeCode? "dropdown active": "dropdown"} onClick={this.clickMenu}>
+                            <li className={0 === activeCode ? "active" : ""}><a href="/video-storage"
+                                                                                className="a_href">首页</a></li>
+                            <li className={1 === activeCode ? "active" : ""}><a href="#" className="a_href">直播</a></li>
+                            <li className={2 === activeCode ? "dropdown active" : "dropdown"} onClick={this.clickMenu}>
                                 <a className="dropdown-toggle a_href" href="#">
                                     视频库 <span className="caret"/>
                                 </a>
@@ -155,16 +161,18 @@ class HeaderComponent extends React.Component {
                                     style={{"display": showDocMenu ? "block" : "none", "margin-top": "6px"}}>
                                     <div className="e"/>
                                     <div className="card" onClick={this.forwardPage}>
-                                        <p className="p_2" data = "/video-storage/storage.html?type=hot"> 热度推荐</p>
-                                        <p className="p_2" data = "/video-storage/storage.html?type=movie"> 电影</p>
-                                        <p className="p_2" data = "/video-storage/storage.html?type=tv"> 电视剧</p>
-                                        <p className="p_3" data = "/video-storage/storage.html?type=comic"> 动漫</p>
+                                        {
+                                            videoStorage.map(({name, data}) => (<p className="p_2" data={data}> {name}</p>))
+                                        }
                                     </div>
                                 </ul>
                             </li>
-                            <li className={3 === activeCode? "active": ""}><a href="/video-storage/pics.html" className="a_href">图像库</a></li>
-                            <li className={4 === activeCode? "active": ""}><a href="/video-storage/books.html" className="a_href">在线小说</a></li>
-                            <li className={5 === activeCode? "active": ""}><a href="/video-storage/tools.html" className="a_href">管理工具</a></li>
+                            <li className={3 === activeCode ? "active" : ""}><a href="/video-storage/pics.html"
+                                                                                className="a_href">图像库</a></li>
+                            <li className={4 === activeCode ? "active" : ""}><a href="/video-storage/books.html"
+                                                                                className="a_href">在线小说</a></li>
+                            <li className={5 === activeCode ? "active" : ""}><a href="/video-storage/tools.html"
+                                                                                className="a_href">管理工具</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             {this.renderTenantInfo()}
