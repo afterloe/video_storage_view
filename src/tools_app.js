@@ -83,7 +83,60 @@ class NavConfigApp extends React.Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        let that = this;
+        Req({
+            method: "GET",
+            url: "/backend/aip/dictionary/group",
+        }).then(value => {
+            that.setState({nav: value})
+        }).catch(({code, message}) => {
+            if (401 === code) {
+                that.setState(() => ({
+                    token: null,
+                    user: null,
+                }));
+                that.setState({nav: []})
+                alert("请登录")
+            }
+        });
+    }
+
+    renderGroupList = (dictionaryGroup = []) => dictionaryGroup.map((d, i) => {
+        const {id, name, groupType, values = []} = d;
+        return (
+            <div>
+                <div className="value" data={id}>
+                    <div className="col-md-1">{i + 1}</div>
+                    <div className="col-md-2">{name}</div>
+                    <div className="col-md-5">{groupType}</div>
+                    <div className="col-md-3 options">
+                        <span>修改</span>
+                        <span>删除</span>
+                        <span>新增子级</span>
+                    </div>
+                </div>
+                {values.map((v, j) => {
+                    const {id, name, data} = v;
+                    return (
+                        <div className="value" data={id}>
+                            <div className="col-md-2">{i + 1} - {j + 1}</div>
+                            <div className="col-md-2">{name}</div>
+                            <div className="col-md-5">{data}</div>
+                            <div className="col-md-3 options">
+                                <span>修改</span>
+                                <span>删除</span>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+            )
+    })
+
+
     render = () => {
+        const {nav = []} = this.state;
         return (
             <div className="main">
                 <div className="top">
@@ -103,89 +156,7 @@ class NavConfigApp extends React.Component {
                         <div className="col-md-3">操作</div>
                     </div>
                     <div className="values">
-                        <div className="value">
-                            <div className="col-md-1">1</div>
-                            <div className="col-md-2">资源库导航</div>
-                            <div className="col-md-5">resources</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                                <span>新增子级</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">1 - 1</div>
-                            <div className="col-md-2">热度推荐</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=hot</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">1 - 2</div>
-                            <div className="col-md-2">电影</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=movie</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">1 - 3</div>
-                            <div className="col-md-2">电视剧</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=tv</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">1 - 4</div>
-                            <div className="col-md-2">动漫</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=comic</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-1">2</div>
-                            <div className="col-md-2">首页导航</div>
-                            <div className="col-md-5">resources</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                                <span>新增子级</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">2 - 1</div>
-                            <div className="col-md-2">系统介绍</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=comic</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">2 - 2</div>
-                            <div className="col-md-2">系统演示</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=comic</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-2">2 - 3</div>
-                            <div className="col-md-2">联系我们</div>
-                            <div className="col-md-5">/video-storage/storage.html?type=comic</div>
-                            <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
-                            </div>
-                        </div>
+                        {this.renderGroupList(nav)}
                     </div>
                 </div>
             </div>
