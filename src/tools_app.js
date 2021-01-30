@@ -134,29 +134,44 @@ class NavConfigApp extends React.Component {
         )
     })
 
-
     render = () => {
         const {nav = []} = this.state;
         return (
-            <div className="main">
-                <div className="top">
-                    <div className="title">导航配置</div>
-                    <div className="bar">
-                        <div>
-                            <div>创建导航</div>
-                            <div>删除导航</div>
+            <div>
+                <div className="modal mask show">
+                    <div className="content">
+                        <div className="mask-header">
+                            <span>添加xxx</span>
+                            <span className="glyphicon glyphicon-remove" />
+                        </div>
+                        <div className="mask-body">
+
+                        </div>
+                        <div className="mask-footer">
+
                         </div>
                     </div>
                 </div>
-                <div className="view">
-                    <div className="title">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-2">导航名称</div>
-                        <div className="col-md-5">标签值</div>
-                        <div className="col-md-3">操作</div>
+                <div className="main">
+                    <div className="top">
+                        <div className="title">导航配置</div>
+                        <div className="bar">
+                            <div>
+                                <div>创建导航</div>
+                                <div>删除导航</div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="values">
-                        {this.renderGroupList(nav)}
+                    <div className="view">
+                        <div className="title">
+                            <div className="col-md-1"></div>
+                            <div className="col-md-2">导航名称</div>
+                            <div className="col-md-5">标签值</div>
+                            <div className="col-md-3">操作</div>
+                        </div>
+                        <div className="values">
+                            {this.renderGroupList(nav)}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -190,7 +205,9 @@ class ToolsApp extends React.Component {
             <div className="tools_app">
                 <div className="left_control">
                     <div>
-                        <div className="title">{"<- "}返回首页</div>
+                        <div className="title"
+                             onClick={e => window.location.href = "/video-storage/index.html"}>{"<- "}返回首页
+                        </div>
                     </div>
                     <div className="line"/>
                     <div>
