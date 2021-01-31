@@ -141,14 +141,23 @@ class NavConfigApp extends React.Component {
                 <div className="modal mask show">
                     <div className="content">
                         <div className="mask-header">
-                            <span>添加xxx</span>
-                            <span className="glyphicon glyphicon-remove" />
+                            <span className="title">添加xxx</span>
                         </div>
                         <div className="mask-body">
-
+                            <div className="input-view">
+                                <label>标签组名</label>
+                                <input placeholder="请输入标签组名称" autoComplete="off" />
+                            </div>
+                            <div className="input-view">
+                                <label>code</label>
+                                <input placeholder="请输入对应的code" autoComplete="off" />
+                            </div>
                         </div>
                         <div className="mask-footer">
-
+                            <div className="btn-group">
+                                <span className="submit">创建</span>
+                                <span className="cancel">取消</span>
+                            </div>
                         </div>
                     </div>
                 </div>

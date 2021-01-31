@@ -135,9 +135,85 @@
 }
 
 .mask .content {
-    background-color: #2b542c;
-    width: 60%;
+    background-color: #f0f0f0;
+    width: 40%;
     border-radius: .65rem !important;
-    height: 20rem;
     margin: 0 auto;
+}
+
+.mask-header {
+    border-radius: .65rem .65rem 0 0!important;
+    background-color: #77bc1f;
+}
+
+.mask-header span {
+    display: inline-block;
+}
+
+.mask-header .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: aliceblue;
+    margin: 2rem 0 2rem 3rem;
+}
+
+.mask-body .input-view {
+    padding: 1.5rem 0 .5rem 3rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+}
+
+.mask-body .input-view label {
+    font-weight: bold;
+    display: inline-block;
+    text-align: right;
+    width: 8rem;
+    margin-right: 3rem;
+}
+
+.mask-body .input-view label::after {
+    content: ":";
+}
+
+.mask-body .input-view input {
+    display: inline-block;
+    padding: 1rem .8rem;
+    border-radius: .65rem !important;
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    border: none;
+    width: 30rem;
+}
+
+.mask-footer {
+    text-align: center;
+}
+
+.mask-footer .btn-group {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1.8rem;
+    width: 100%;
+}
+
+.mask-footer .btn-group span {
+    display: inline-block;
+    cursor: pointer;
+    width: 50%;
+    padding: 1.5rem;
+}
+
+.btn-group span.submit {
+    background-color: #3c763d;
+    color: #f0f0f0;
+    border-radius: 0 0 0 .65rem!important;
+}
+
+.btn-group span.submit:hover {
+    background-color: #77bc1f;
+}
+
+.btn-group span.cancel {
+    background-color: #ffffff;
+    border-radius: 0 0 .65rem 0!important;
 }
