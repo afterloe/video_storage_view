@@ -331,7 +331,7 @@ class NavConfigApp extends React.Component {
                            then={this.modifyDictionaryGroup} cannel={this.closeWindow}/>
                 <InputView showWindow={showDeleteDictionaryGroupWindow} title="删除标签组" msg={msg}
                            then={this.deleteDictionaryGroup} cannel={this.closeWindow}/>
-                <InputView showWindow={showAppendDictionaryWindow} title="新增标签" argsGroup={argsGroup}
+                <InputView showWindow={showAppendDictionaryWindow} title="追加子标签" argsGroup={argsGroup}
                            then={this.appendDictionary} cannel={this.closeWindow}/>
                 <div className="main">
                     <div className="top">
