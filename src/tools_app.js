@@ -75,15 +75,75 @@ class VideoManagerApp extends React.Component {
     }
 }
 
+class InputView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.closeWindow = this.closeWindow.bind(this);
+        this.inputValue = this.inputValue.bind(this);
+        this.submit = this.submit.bind(this);
+    }
+
+    closeWindow = e => {
+        this.props.cannel();
+        this.state = {}
+    }
+
+    submit = e => {
+        this.props.then(this.state);
+        this.state = {}
+    }
+
+    inputValue = e => {
+        const key = e.target.getAttribute("data")
+        const value = e.target.value;
+        this.setState({[key]: value});
+    }
+
+    render = () => {
+        const {showWindow = false, title = "", argsGroup = []} = this.props;
+        return (
+            <div className={showWindow ? "modal mask show" : "modal mask"}>
+                <div className="content">
+                    <div className="mask-header">
+                        <span className="title">{title}</span>
+                    </div>
+                    <div className="mask-body">
+                        {argsGroup.map(({label = "", key = ""}) => (
+                            <div className="input-view">
+                                <label>{label}</label>
+                                <input placeholder="请输入标签组名称" data={key} onChange={this.inputValue} autoComplete="off"/>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="mask-footer">
+                        <div className="btn-group">
+                            <span className="submit" onClick={this.submit}>创建</span>
+                            <span className="cancel" onClick={this.closeWindow}>取消</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
 
 class NavConfigApp extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {};
+        this.createDictionaryGroup = this.createDictionaryGroup.bind(this);
+        this.openWindow = this.openWindow.bind(this);
+        this.closeWindow = this.closeWindow.bind(this);
+        this.loadData = this.loadData.bind(this);
     }
 
     componentDidMount() {
+       this.loadData();
+    }
+
+    loadData = () => {
         let that = this;
         Req({
             method: "GET",
@@ -134,39 +194,37 @@ class NavConfigApp extends React.Component {
         )
     })
 
+    openWindow = e => this.setState({showWindow: true})
+
+    closeWindow = e => this.setState({showWindow: false})
+
+    createDictionaryGroup = value => {
+        let that = this;
+        Req({
+            method: "PUT",
+            url: "/backend/aip/dictionary/group",
+            data: value
+        }).then(data => {
+            that.loadData();
+        }).catch( ({msg}) => {
+            that.setState({err: msg});
+        });
+        that.setState({showWindow: false});
+    }
+
     render = () => {
-        const {nav = []} = this.state;
+        const {nav = [], showWindow = false} = this.state;
         return (
             <div>
-                <div className="modal mask show">
-                    <div className="content">
-                        <div className="mask-header">
-                            <span className="title">添加xxx</span>
-                        </div>
-                        <div className="mask-body">
-                            <div className="input-view">
-                                <label>标签组名</label>
-                                <input placeholder="请输入标签组名称" autoComplete="off" />
-                            </div>
-                            <div className="input-view">
-                                <label>code</label>
-                                <input placeholder="请输入对应的code" autoComplete="off" />
-                            </div>
-                        </div>
-                        <div className="mask-footer">
-                            <div className="btn-group">
-                                <span className="submit">创建</span>
-                                <span className="cancel">取消</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                <InputView showWindow={showWindow} title="创建标签组" argsGroup={[{label: "标签组名", key: "name"}, {label: "code", key: "groupType"}]} then={this.createDictionaryGroup} cannel={this.closeWindow} />
+
                 <div className="main">
                     <div className="top">
                         <div className="title">导航配置</div>
                         <div className="bar">
                             <div>
-                                <div>创建导航</div>
+                                <div onClick={this.openWindow}>创建导航</div>
                                 <div>删除导航</div>
                             </div>
                         </div>

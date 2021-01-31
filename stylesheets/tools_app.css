@@ -125,9 +125,9 @@
     color: #455A64;
 }
 
-/*.main .title > div {*/
-/*    display: inline-block;*/
-/*}*/
+/**
+model div mask
+ */
 
 .show {
     cursor: default;
