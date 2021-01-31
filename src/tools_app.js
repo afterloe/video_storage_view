@@ -148,6 +148,7 @@ class NavConfigApp extends React.Component {
         this.openModifyDictionaryWindow = this.openModifyDictionaryWindow.bind(this);
         this.openDeleteDictionaryWindow = this.openDeleteDictionaryWindow.bind(this);
         this.openAppendDictionaryWindow = this.openAppendDictionaryWindow.bind(this);
+        this.openModifyDictionaryItemWindow = this.openModifyDictionaryItemWindow.bind(this);
     }
 
     componentDidMount() {
@@ -195,8 +196,8 @@ class NavConfigApp extends React.Component {
                             <div className="col-md-2">{name}</div>
                             <div className="col-md-5">{data}</div>
                             <div className="col-md-3 options">
-                                <span>修改</span>
-                                <span>删除</span>
+                                <span onClick={() => this.openModifyDictionaryItemWindow(v)}>修改</span>
+                                <span onClick={() => this.openDeleteDictionaryItemWindow(v)}>删除</span>
                             </div>
                         </div>
                     );
@@ -214,7 +215,9 @@ class NavConfigApp extends React.Component {
         showCreateDictionaryGroupWindow: false,
         showModifyDictionaryGroupWindow: false,
         showDeleteDictionaryGroupWindow: false,
-        showAppendDictionaryWindow: false
+        showAppendDictionaryWindow: false,
+        showModifyDictionaryItemWindow: false,
+        showDeleteDictionaryItemWindow: false,
     })
 
     createDictionaryGroup = value => {
@@ -291,7 +294,7 @@ class NavConfigApp extends React.Component {
         const index = e.target.getAttribute("index");
         this.setState({
             showAppendDictionaryWindow: true,
-            argsGroup: [{label: "标签组名", key: "name"}, {label: "标签值", key: "data"}],
+            argsGroup: [{label: "标签名", key: "name"}, {label: "标签值", key: "data"}],
             index,
         });
     }
@@ -313,6 +316,55 @@ class NavConfigApp extends React.Component {
         that.setState({showAppendDictionaryWindow: false});
     }
 
+    openModifyDictionaryItemWindow = v => {
+        this.setState({
+            showModifyDictionaryItemWindow: true,
+            argsGroup: [{label: "标签名", key: "name", val: v.name}, {label: "标签值", key: "data", val: v.data}],
+            target: v,
+        })
+    }
+
+    modifyDictionaryItem = value => {
+        if (null == value) {
+            return
+        }
+        const {target = {}} = this.state;
+        Object.assign(target, value);
+        let that = this;
+        Req({
+            method: "POST",
+            url: "/backend/aip/dictionary",
+            data: target
+        }).then(data => {
+            that.loadData();
+        }).catch(({msg}) => {
+            that.setState({err: msg});
+        });
+        that.setState({showModifyDictionaryItemWindow: false});
+    }
+
+    deleteDictionaryItem = () => {
+        let that = this;
+        const {target = {}} = this.state;
+        Req({
+            method: "DELETE",
+            url: "/backend/aip/dictionary?id=" + target.id,
+        }).then(data => {
+            that.loadData();
+        }).catch(({msg}) => {
+            that.setState({err: msg});
+        });
+        that.setState({showDeleteDictionaryItemWindow: false});
+    }
+
+    openDeleteDictionaryItemWindow = v => {
+        this.setState({
+            showDeleteDictionaryItemWindow: true,
+            msg: `确定删除子标签 ${v.name}?`,
+            target: v,
+        });
+    }
+
     render = () => {
         const {
             nav = [],
@@ -320,6 +372,8 @@ class NavConfigApp extends React.Component {
             showModifyDictionaryGroupWindow = false,
             showDeleteDictionaryGroupWindow = false,
             showAppendDictionaryWindow = false,
+            showModifyDictionaryItemWindow = false,
+            showDeleteDictionaryItemWindow = false,
             msg,
             argsGroup = []
         } = this.state;
@@ -333,6 +387,10 @@ class NavConfigApp extends React.Component {
                            then={this.deleteDictionaryGroup} cannel={this.closeWindow}/>
                 <InputView showWindow={showAppendDictionaryWindow} title="追加子标签" argsGroup={argsGroup}
                            then={this.appendDictionary} cannel={this.closeWindow}/>
+                <InputView showWindow={showModifyDictionaryItemWindow} title="修改子标签" argsGroup={argsGroup}
+                           then={this.modifyDictionaryItem} cannel={this.closeWindow}/>
+                <InputView showWindow={showDeleteDictionaryItemWindow} title="删除子标签" msg={msg}
+                           then={this.deleteDictionaryItem} cannel={this.closeWindow}/>
                 <div className="main">
                     <div className="top">
                         <div className="title">导航配置</div>
