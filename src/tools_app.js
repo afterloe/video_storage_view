@@ -176,7 +176,7 @@ class NavConfigApp extends React.Component {
                         <span>新增子级</span>
                     </div>
                 </div>
-                {values.map((v, j) => {
+                {values? values.map((v, j) => {
                     const {id, name, data} = v;
                     return (
                         <div className="value" data={id}>
@@ -189,7 +189,7 @@ class NavConfigApp extends React.Component {
                             </div>
                         </div>
                     );
-                })}
+                }): ""}
             </div>
         )
     })
