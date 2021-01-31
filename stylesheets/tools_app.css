@@ -163,6 +163,11 @@ model div mask
     line-height: 1.5rem;
 }
 
+.mask-body .no-value {
+    font-size: 1.85rem;
+    margin: 2.5rem;
+}
+
 .mask-body .input-view label {
     font-weight: bold;
     display: inline-block;
