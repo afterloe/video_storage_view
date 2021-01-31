@@ -94,8 +94,11 @@ class InputView extends React.Component {
     }
 
     inputValue = e => {
-        const key = e.target.getAttribute("data")
+        const key = e.target.getAttribute("data");
         const value = e.target.value;
+        const index = e.target.getAttribute("index");
+        const {argsGroup = []} = this.props;
+        argsGroup[index]["val"] = value;
         this.setState({[key]: value});
     }
 
@@ -108,10 +111,10 @@ class InputView extends React.Component {
                         <span className="title">{title}</span>
                     </div>
                     <div className="mask-body">
-                        {argsGroup.map(({label = "", key = ""}) => (
+                        {argsGroup.map(({label = "", key = "", val = "请输入参数"}, i) => (
                             <div className="input-view">
                                 <label>{label}</label>
-                                <input placeholder="请输入标签组名称" data={key} onChange={this.inputValue} autoComplete="off"/>
+                                <input index={i} placeholder={val} value={val} data={key} onChange={this.inputValue} autoComplete="off"/>
                             </div>
                         ))}
                     </div>
@@ -134,9 +137,10 @@ class NavConfigApp extends React.Component {
         super(props);
         this.state = {};
         this.createDictionaryGroup = this.createDictionaryGroup.bind(this);
-        this.openWindow = this.openWindow.bind(this);
+        this.openCreateDictionaryWindow = this.openCreateDictionaryWindow.bind(this);
         this.closeWindow = this.closeWindow.bind(this);
         this.loadData = this.loadData.bind(this);
+        this.openModifyDictionaryWindow = this.openModifyDictionaryWindow.bind(this);
     }
 
     componentDidMount() {
@@ -171,7 +175,7 @@ class NavConfigApp extends React.Component {
                     <div className="col-md-2">{name}</div>
                     <div className="col-md-5">{groupType}</div>
                     <div className="col-md-3 options">
-                        <span>修改</span>
+                        <span index={i} onClick={this.openModifyDictionaryWindow}>修改</span>
                         <span>删除</span>
                         <span>新增子级</span>
                     </div>
@@ -194,9 +198,15 @@ class NavConfigApp extends React.Component {
         )
     })
 
-    openWindow = e => this.setState({showWindow: true})
+    openCreateDictionaryWindow = e => this.setState({
+        showCreateDictionaryGroupWindow: true,
+        argsGroup: [{label: "标签组名", key: "name"}, {label: "code", key: "groupType"}]
+    })
 
-    closeWindow = e => this.setState({showWindow: false})
+    closeWindow = e => this.setState({
+        showCreateDictionaryGroupWindow: false,
+        showModifyDictionaryGroupWindow: false
+    })
 
     createDictionaryGroup = value => {
         let that = this;
@@ -209,22 +219,52 @@ class NavConfigApp extends React.Component {
         }).catch( ({msg}) => {
             that.setState({err: msg});
         });
-        that.setState({showWindow: false});
+        that.setState({showCreateDictionaryGroupWindow: false});
+    }
+
+    openModifyDictionaryWindow = e => {
+        const index = e.target.getAttribute("index");
+        const {nav = []} = this.state;
+        const {name, groupType} = nav[index] || {};
+        this.setState({
+            showModifyDictionaryGroupWindow: true,
+            index,
+            argsGroup: [{label: "标签组名", key: "name", val: name}, {label: "code", key: "groupType", val: groupType}]
+        })
+    }
+
+    modifyDictionaryGroup = value => {
+        if (null == value) {
+            return
+        }
+        const {index, nav = []} = this.state;
+        const {id, name, groupType} = nav[index] || {};
+        const target = Object.assign({id, name, groupType}, value)
+        let that = this;
+        Req({
+            method: "POST",
+            url: "/backend/aip/dictionary/group",
+            data: target
+        }).then(data => {
+            that.loadData();
+        }).catch( ({msg}) => {
+            that.setState({err: msg});
+        });
+        that.setState({showModifyDictionaryGroupWindow: false});
     }
 
     render = () => {
-        const {nav = [], showWindow = false} = this.state;
+        const {nav = [], showCreateDictionaryGroupWindow = false, showModifyDictionaryGroupWindow = false, argsGroup = []} = this.state;
         return (
             <div>
-
-                <InputView showWindow={showWindow} title="创建标签组" argsGroup={[{label: "标签组名", key: "name"}, {label: "code", key: "groupType"}]} then={this.createDictionaryGroup} cannel={this.closeWindow} />
-
+                <InputView showWindow={showCreateDictionaryGroupWindow} title="创建标签组" argsGroup={argsGroup} then={this.createDictionaryGroup} cannel={this.closeWindow} />
+                <InputView showWindow={showModifyDictionaryGroupWindow} title="修改标签组" argsGroup={argsGroup} then={this.modifyDictionaryGroup} cannel={this.closeWindow} />
                 <div className="main">
                     <div className="top">
                         <div className="title">导航配置</div>
                         <div className="bar">
                             <div>
-                                <div onClick={this.openWindow}>创建导航</div>
+                                <div onClick={this.openCreateDictionaryWindow}>创建导航</div>
                                 <div>删除导航</div>
                             </div>
                         </div>
