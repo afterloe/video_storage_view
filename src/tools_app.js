@@ -121,7 +121,18 @@ class VideoManagerApp extends React.Component {
     }
 
     openNewVideoWindow = ({name, path, size, mode, modifyTime}) => {
-        this.setState({showNewVideoWindow: true});
+        const that = this;
+        Req({
+            method: "POST",
+            url: "/backend/aip/video/ffmpeg",
+            data: {path}
+        }).then(value => {
+            console.log(value);
+            that.setState({
+                argsGroup: [{label: "目录位置", key: "path"}],
+                showNewVideoWindow: true
+            });
+        });
     }
 
     newVideo = value => {
