@@ -72,7 +72,8 @@ class VideoManagerApp extends React.Component {
 
     closeWindow = () => {
         this.setState({
-            showScanWindow: false
+            showScanWindow: false,
+            showNewVideoWindow: false
         });
     }
 
@@ -100,15 +101,13 @@ class VideoManagerApp extends React.Component {
                             <div className="col-md-2">操作</div>
                         </div>
                         <div className="values">
-                            {value ? value.map((v, i) =>
+                            {value ? value.map(({name, path, size, mode, modifyTime}, i) =>
                                 <div className="value">
                                     <div className="col-md-1">{i + 1}</div>
-                                    <div className="col-md-7">{v}</div>
-                                    <div className="col-md-2">1932 MB</div>
+                                    <div className="col-md-7">{name}</div>
+                                    <div className="col-md-2">{Math.round(size * 1000) / 1000 / 1000} KB</div>
                                     <div className="col-md-2 options">
-                                        <span>删除</span>
-                                        <span>修改</span>
-                                        <span>下架</span>
+                                        <span onClick={() => this.openNewVideoWindow({name, path, size, mode, modifyTime})}>上新</span>
                                     </div>
                                 </div>) : ""}
                         </div>
@@ -121,13 +120,23 @@ class VideoManagerApp extends React.Component {
         this.setState({showScanWindow: false});
     }
 
+    openNewVideoWindow = ({name, path, size, mode, modifyTime}) => {
+        this.setState({showNewVideoWindow: true});
+    }
+
+    newVideo = value => {
+        console.log(value);
+    }
+
     render = () => {
-        const {showScanWindow = false, argsGroup = [], viewContentHTML = ""} = this.state;
+        const {showScanWindow = false, showNewVideoWindow = false, argsGroup = [], viewContentHTML = ""} = this.state;
         return (
             <div className="main">
 
                 <InputView showWindow={showScanWindow} title="输入扫描目录" argsGroup={argsGroup}
                            then={this.scanDir} cannel={this.closeWindow}/>
+                <InputView showWindow={showNewVideoWindow} title="视频上新" argsGroup={argsGroup}
+                           then={this.newVideo} cannel={this.closeWindow}/>
 
                 <div className="top">
                     <div className="title">视频管理</div>
