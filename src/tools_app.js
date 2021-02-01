@@ -161,15 +161,18 @@ class NavConfigApp extends React.Component {
             method: "GET",
             url: "/backend/aip/dictionary/group",
         }).then(value => {
-            that.setState({nav: value})
-        }).catch(({code, message}) => {
+            if (value) {
+                that.setState({nav: value});
+            }
+        }).catch(({code}) => {
             if (401 === code) {
                 that.setState(() => ({
                     token: null,
                     who: null,
                 }));
-                that.setState({nav: []})
-                alert("请登录")
+                that.setState({nav: []});
+                // TODO
+                alert("请登录");
             }
         });
     }
@@ -335,7 +338,7 @@ class NavConfigApp extends React.Component {
             method: "POST",
             url: "/backend/aip/dictionary",
             data: target
-        }).then(data => {
+        }).then(() => {
             that.loadData();
         }).catch(({msg}) => {
             that.setState({err: msg});
