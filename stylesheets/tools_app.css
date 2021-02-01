@@ -209,13 +209,13 @@ model div mask
 }
 
 .btn-group span.submit {
-    background-color: #3c763d;
+    background-color: #77bc1f;
     color: #f0f0f0;
     border-radius: 0 0 0 .65rem!important;
 }
 
 .btn-group span.submit:hover {
-    background-color: #77bc1f;
+    background-color: #3c763d;
 }
 
 .btn-group span.cancel {

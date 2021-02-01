@@ -1,79 +1,5 @@
 "use strict";
 
-class VideoManagerApp extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    render = () => {
-        return (
-            <div className="main">
-                <div className="top">
-                    <div className="title">视频管理</div>
-                    <div className="bar">
-                        <div>
-                            <div>指定扫描</div>
-                            <div>上新</div>
-                        </div>
-                    </div>
-                </div>
-                <div className="view">
-                    <div className="title">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-3">名称</div>
-                        <div className="col-md-2">类型</div>
-                        <div className="col-md-2">大小</div>
-                        <div className="col-md-2">时长</div>
-                        <div className="col-md-2">操作</div>
-                    </div>
-                    <div className="values">
-                        <div className="value">
-                            <div className="col-md-1">1</div>
-                            <div className="col-md-3">送一朵小红花</div>
-                            <div className="col-md-2">video/mp4</div>
-                            <div className="col-md-2">1932 MB</div>
-                            <div className="col-md-2">104.22 分钟</div>
-                            <div className="col-md-2 options">
-                                <span>删除</span>
-                                <span>修改</span>
-                                <span>下架</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-1">2</div>
-                            <div className="col-md-3">送一朵小红花</div>
-                            <div className="col-md-2">video/mp4</div>
-                            <div className="col-md-2">1932 MB</div>
-                            <div className="col-md-2">104.22 分钟</div>
-                            <div className="col-md-2 options">
-                                <span>删除</span>
-                                <span>修改</span>
-                                <span>下架</span>
-                            </div>
-                        </div>
-                        <div className="value">
-                            <div className="col-md-1">3</div>
-                            <div className="col-md-3">送一朵小红花</div>
-                            <div className="col-md-2">video/mp4</div>
-                            <div className="col-md-2">1932 MB</div>
-                            <div className="col-md-2">104.22 分钟</div>
-                            <div className="col-md-2 options">
-                                <span>删除</span>
-                                <span>修改</span>
-                                <span>下架</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <PageComponent position="pull-left" activeNum={1} docCount={3}/>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
 
 class InputView extends React.Component {
     constructor(props) {
@@ -111,17 +37,19 @@ class InputView extends React.Component {
                         <span className="title">{title}</span>
                     </div>
                     <div className="mask-body">
-                        {0 === argsGroup.length ? (<div className="no-value">{msg}</div>) : argsGroup.map(({
-                                                                                                               label = "",
-                                                                                                               key = "",
-                                                                                                               val = "请输入参数"
-                                                                                                           }, i) => (
-                            <div className="input-view">
-                                <label>{label}</label>
-                                <input index={i} placeholder="请输入参数" value={val} data={key} onChange={this.inputValue}
-                                       autoComplete="off"/>
-                            </div>
-                        ))}
+                        {0 === argsGroup.length ? (<div className="no-value">{msg}</div>) :
+                            argsGroup.map(({
+                                               label = "",
+                                               key = "",
+                                               val
+                                           }, i) => (
+                                <div className="input-view">
+                                    <label>{label}</label>
+                                    <input index={i} placeholder="请输入参数" value={val} data={key}
+                                           onChange={this.inputValue}
+                                           autoComplete="off"/>
+                                </div>
+                            ))}
                     </div>
                     <div className="mask-footer">
                         <div className="btn-group">
@@ -135,6 +63,91 @@ class InputView extends React.Component {
     }
 }
 
+class VideoManagerApp extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    closeWindow = () => {
+        this.setState({
+            showScanWindow: false
+        });
+    }
+
+    openScanWindow = () => {
+        this.setState({
+            showScanWindow: true,
+            argsGroup: [{label: "目录位置", key: "path"}],
+        });
+    }
+
+    scanDir = value => {
+        const that = this;
+        Req({
+            method: "POST",
+            url: "/backend/aip/video/scan",
+            data: value,
+        }).then(value => {
+            if (value) {
+                const viewContentHTML = (
+                    <div className="view">
+                        <div className="title">
+                            <div className="col-md-1"></div>
+                            <div className="col-md-7">名称</div>
+                            <div className="col-md-2">大小</div>
+                            <div className="col-md-2">操作</div>
+                        </div>
+                        <div className="values">
+                            {value ? value.map((v, i) =>
+                                <div className="value">
+                                    <div className="col-md-1">{i + 1}</div>
+                                    <div className="col-md-7">{v}</div>
+                                    <div className="col-md-2">1932 MB</div>
+                                    <div className="col-md-2 options">
+                                        <span>删除</span>
+                                        <span>修改</span>
+                                        <span>下架</span>
+                                    </div>
+                                </div>) : ""}
+                        </div>
+                    </div>
+                );
+
+                that.setState({viewContentHTML});
+            }
+        });
+        this.setState({showScanWindow: false});
+    }
+
+    render = () => {
+        const {showScanWindow = false, argsGroup = [], viewContentHTML = ""} = this.state;
+        return (
+            <div className="main">
+
+                <InputView showWindow={showScanWindow} title="输入扫描目录" argsGroup={argsGroup}
+                           then={this.scanDir} cannel={this.closeWindow}/>
+
+                <div className="top">
+                    <div className="title">视频管理</div>
+                    <div className="bar">
+                        <div>
+                            <div onClick={this.openScanWindow}>目录扫描</div>
+                            <div>视频库</div>
+                        </div>
+                    </div>
+                </div>
+                {viewContentHTML}
+                {/*<div className="view">*/}
+                {/*    <div>*/}
+                {/*        <PageComponent position="pull-left" activeNum={1} docCount={3}/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+            </div>
+        );
+    }
+}
 
 class NavConfigApp extends React.Component {
 
