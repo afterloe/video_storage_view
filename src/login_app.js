@@ -64,7 +64,7 @@ class HomePageApp extends React.Component {
         Req({
             method: "POST",
             url: "/backend/signin",
-            data: {email, passwd: pwd}
+            data: {email, password: pwd}
         }).then(data => {
             localStorage.setItem("token", data.token);
             localStorage.setItem("who", JSON.stringify(data.user));
