@@ -162,7 +162,7 @@ class HeaderComponent extends React.Component {
                                     <div className="e"/>
                                     <div className="card" onClick={this.forwardPage}>
                                         {
-                                            videoStorage.map(({name, data}) => (<p className="p_2" data={data}> {name}</p>))
+                                            videoStorage? videoStorage.map(({name, data}) => (<p className="p_2" data={data}> {name}</p>)): ""
                                         }
                                     </div>
                                 </ul>

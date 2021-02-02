@@ -172,7 +172,7 @@ model div mask
     font-weight: bold;
     display: inline-block;
     text-align: right;
-    width: 8rem;
+    width: 12rem;
     margin-right: 3rem;
 }
 
@@ -181,6 +181,22 @@ model div mask
 }
 
 .mask-body .input-view input {
+    display: inline-block;
+    padding: 1rem .8rem;
+    border-radius: .65rem !important;
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    border: none;
+    width: 30rem;
+}
+
+.mask-body .input-view .view-only {
+    width: 70%;
+    line-height: 2.5rem;
+    display: inline-block;
+}
+
+.mask-body .input-view textarea {
     display: inline-block;
     padding: 1rem .8rem;
     border-radius: .65rem !important;
@@ -209,13 +225,13 @@ model div mask
 }
 
 .btn-group span.submit {
-    background-color: #3c763d;
+    background-color: #77bc1f;
     color: #f0f0f0;
     border-radius: 0 0 0 .65rem!important;
 }
 
 .btn-group span.submit:hover {
-    background-color: #77bc1f;
+    background-color: #3c763d;
 }
 
 .btn-group span.cancel {

@@ -19,7 +19,8 @@ class PlayerVideoComponent extends React.Component {
                 <div className="row">
                     <div className="screen">
                         <video width="100%" controls>
-                            <source src="https://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4"/>
+                            <source src="/on-demand/VID_20200106_134939.mp4" type="video/mp4"/>
+                            {/*<source src="https://www.runoob.com/try/demo_source/mov_bbb.mp4" type="video/mp4"/>*/}
                         </video>
                     </div>
                 </div>
