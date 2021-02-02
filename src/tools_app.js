@@ -28,6 +28,43 @@ class InputView extends React.Component {
         this.setState({[key]: value});
     }
 
+    renderLineHTML = ({i = 0, val, key, placeholder}, type = "input") => {
+        switch (type) {
+            case "input":
+                return (<input index={i} placeholder={placeholder} value={val} data={key}
+                               onChange={this.inputValue}
+                               autoComplete="off"/>);
+            case "multiline":
+                return (<textarea rows="5" cols="30" index={i} placeholder={placeholder} value={val} data={key}
+                                  onChange={this.inputValue}
+                                  autoComplete="off"/>)
+            default:
+                return "";
+        }
+    }
+
+    renderBodyHTML = (argsGroup = []) => {
+        const that = this;
+        return argsGroup.map(({
+                                  label = "",
+                                  key = "",
+                                  val,
+                                  viewOnly = false,
+                                  placeholder = "请输入参数",
+                                  type = "input"
+                              }, i) => (
+            <div className="input-view">
+                <label>{label}</label>
+                {viewOnly ? (<span className="view-only">{val}</span>) : (that.renderLineHTML({
+                    i,
+                    val,
+                    key,
+                    placeholder
+                }, type))}
+            </div>
+        ));
+    }
+
     render = () => {
         const {showWindow = false, title = "", argsGroup = [], msg = ""} = this.props;
         return (
@@ -37,19 +74,8 @@ class InputView extends React.Component {
                         <span className="title">{title}</span>
                     </div>
                     <div className="mask-body">
-                        {0 === argsGroup.length ? (<div className="no-value">{msg}</div>) :
-                            argsGroup.map(({
-                                               label = "",
-                                               key = "",
-                                               val
-                                           }, i) => (
-                                <div className="input-view">
-                                    <label>{label}</label>
-                                    <input index={i} placeholder="请输入参数" value={val} data={key}
-                                           onChange={this.inputValue}
-                                           autoComplete="off"/>
-                                </div>
-                            ))}
+                        {0 === argsGroup.length ? (
+                            <div className="no-value">{msg}</div>) : this.renderBodyHTML(argsGroup)}
                     </div>
                     <div className="mask-footer">
                         <div className="btn-group">
@@ -80,7 +106,7 @@ class VideoManagerApp extends React.Component {
     openScanWindow = () => {
         this.setState({
             showScanWindow: true,
-            argsGroup: [{label: "目录位置", key: "path"}],
+            argsGroup: [{label: "目录位置", key: "path", placeholder: "输入要扫描的目录地址"}],
         });
     }
 
@@ -107,7 +133,13 @@ class VideoManagerApp extends React.Component {
                                     <div className="col-md-7">{name}</div>
                                     <div className="col-md-2">{Math.round(size * 1000) / 1000 / 1000} KB</div>
                                     <div className="col-md-2 options">
-                                        <span onClick={() => this.openNewVideoWindow({name, path, size, mode, modifyTime})}>上新</span>
+                                        <span onClick={() => this.openNewVideoWindow({
+                                            name,
+                                            path,
+                                            size,
+                                            mode,
+                                            modifyTime
+                                        })}>上新</span>
                                     </div>
                                 </div>) : ""}
                         </div>
@@ -127,16 +159,46 @@ class VideoManagerApp extends React.Component {
             url: "/backend/aip/video/ffmpeg",
             data: {path}
         }).then(value => {
-            console.log(value);
+            const {FFmpegJSON = "{}", id = 0, path = "", name = ""} = value;
+            const {streams = [], format = {}} = JSON.parse(FFmpegJSON);
+            const {codec_long_name, coded_width, coded_height} = streams[0];
+            const {duration, size, filename} = format;
+            const videoName = path.slice(path.lastIndexOf("/") + 1, path.length);
             that.setState({
-                argsGroup: [{label: "目录位置", key: "path"}],
+                instance: {
+                    id: id,
+                    size: size,
+                    width: coded_width,
+                    height: coded_height,
+                    duration: duration,
+                    title: videoName
+                },
+                argsGroup: [
+                    {label: "唯一标识码", key: "name", val: name, viewOnly: true},
+                    {label: "视频存储路径", key: "path", val: filename, viewOnly: true},
+                    {label: "视频编码", key: "codec", val: codec_long_name, viewOnly: true},
+                    {label: "大小", key: "size", val: size, viewOnly: true},
+                    {label: "分辨率", key: "resolving", val: `${coded_width}*${coded_height}`, viewOnly: true},
+                    {label: "时长", key: "duration", val: duration, viewOnly: true},
+                    {label: "视频标题", key: "title", placeholder: "输入视频标题", val: videoName},
+                    {label: "描述", key: "describe", placeholder: "输入视频描述信息", type: "multiline"},
+                ],
                 showNewVideoWindow: true
             });
         });
     }
 
     newVideo = value => {
-        console.log(value);
+        if (null == value) {
+            return
+        }
+        const {instance} = this.state;
+        if (value.name) {
+            delete instance.name;
+        }
+        this.setState({showNewVideoWindow: false});
+        Object.assign(instance, value);
+        console.log(instance);
     }
 
     render = () => {
@@ -174,14 +236,6 @@ class NavConfigApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.createDictionaryGroup = this.createDictionaryGroup.bind(this);
-        this.openCreateDictionaryWindow = this.openCreateDictionaryWindow.bind(this);
-        this.closeWindow = this.closeWindow.bind(this);
-        this.loadData = this.loadData.bind(this);
-        this.openModifyDictionaryWindow = this.openModifyDictionaryWindow.bind(this);
-        this.openDeleteDictionaryWindow = this.openDeleteDictionaryWindow.bind(this);
-        this.openAppendDictionaryWindow = this.openAppendDictionaryWindow.bind(this);
-        this.openModifyDictionaryItemWindow = this.openModifyDictionaryItemWindow.bind(this);
     }
 
     componentDidMount() {
