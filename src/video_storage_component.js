@@ -6,8 +6,16 @@ class StorageView extends React.Component {
         super(props);
     }
 
-    playerVideo = id => {
-        window.location.href = "/video-storage/player.html?uuid=5a9db40b-3b0e-4814-9489-831d0f4e389c";
+    playerVideo = video => {
+        const {id} = video;
+        Req({
+            method: "GET",
+            url: "/backend/aip/video/player?id=" + id,
+        }).then(value => {
+            localStorage.setItem("video", JSON.stringify(video));
+            localStorage.setItem("src", value + "");
+            window.location.href = "/video-storage/player.html?movie="+guid2();
+        }).catch(({msg}) => alert(msg));
     }
 
     render = () => {
@@ -33,35 +41,38 @@ class StorageView extends React.Component {
                 </div>
                 <div className="my-3 p-3 bg-white rounded shadow-sm video-list">
                     <div className="row">
-                        {videoList ? videoList.map(({title = "", describe = "", id}, i) => (
-                            <div className="col-lg-4">
-                                <div className="video" onClick={e => this.playerVideo(id)}>
-                                    <div className="title" style={{"background-color": bgColor[i]}}>
-                                        {title}
-                                    </div>
-                                    <div className="detail">
-                                        <div className="screenshot">
-                                            <div className="last"/>
-                                            <div className="image">
-                                                <img src="/video-storage/images/img_1.png" alt="screenshot"/>
-                                            </div>
-                                            <div className="next"/>
+                        {videoList ? videoList.map(video => {
+                            const {title = "", describe = "", id} = video;
+                            return (
+                                <div className="col-lg-4">
+                                    <div className="video" onClick={e => this.playerVideo(video)}>
+                                        <div className="title" style={{"background-color": bgColor[3]}}>
+                                            {title}
                                         </div>
-                                        <div className="describe">
-                                            {describe}
-                                        </div>
-                                        <p className="update">
-                                            <span className="line"/>
-                                            <div className="func">
-                                                <small>点赞数: 289598</small>
-                                                <small>评论数: 289598</small>
-                                                <small>播放量: 289598</small>
+                                        <div className="detail">
+                                            <div className="screenshot">
+                                                <div className="last"/>
+                                                <div className="image">
+                                                    <img src="/video-storage/images/img_1.png" alt="screenshot"/>
+                                                </div>
+                                                <div className="next"/>
                                             </div>
-                                        </p>
+                                            <div className="describe">
+                                                {describe}
+                                            </div>
+                                            <p className="update">
+                                                <span className="line"/>
+                                                <div className="func">
+                                                    <small>点赞数: 289598</small>
+                                                    <small>评论数: 289598</small>
+                                                    <small>播放量: 289598</small>
+                                                </div>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )) : (<span>暂未有视频上架</span>)}
+                            )
+                        }) : (<span>暂未有视频上架</span>)}
                     </div>
                 </div>
             </main>

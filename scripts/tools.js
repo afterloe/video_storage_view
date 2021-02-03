@@ -15,6 +15,11 @@
 
 const bgColor = ["#009eff", "#2c88d8", "#427ed0", "#6967c1", "#9a61ba", "#b268b8", "#d974ba", "#e672b4", "#f58dbf", "#f2f2f2"];
 
+const guid2 = () => {
+    const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
 const cleanArray = actual => {
     const newArray = [];
     for (let i = 0; i < actual.length; i++) {
@@ -72,11 +77,11 @@ const Req = ({method = "GET", url, data}) => new Promise((resolve, reject) => {
 });
 
 const strToHex = str => {
-    if(str === "")
+    if (str === "")
         return "";
     const hexCharCode = [];
     hexCharCode.push("0x");
-    for(let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i++) {
         hexCharCode.push((str.charCodeAt(i)).toString(16));
     }
     return hexCharCode.join("");
@@ -102,7 +107,7 @@ const sleep = (time) => {
 
 /**
  *  获取输出设备尺寸信息
- * 
+ *
  * @returns {Object} {width: number, height: number}
  */
 const dimensions = () => {
@@ -127,20 +132,20 @@ const dimensions = () => {
 
 /**
  * 获取当前是星期几
- * 
+ *
  * @returns {string}
  */
 const getWeekDate = () => {
     const [now, weeks] = [new Date(), ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]];
     return weeks[now.getDay()];
- };
- 
+};
+
 /**
  * 时间格式化
- * 
+ *
  * @param {string}  fmt     日期格式: YYYY-mm-dd HH:MM:SS
  * @param {Date}    date    时间对象：new Date()
- * 
+ *
  * @returns {string}
  */
 const dateFormat = (fmt = "YYYY-mm-dd HH:MM:SS", date = new Date()) => {
