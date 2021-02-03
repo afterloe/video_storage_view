@@ -4,6 +4,7 @@ class StorageApp extends React.Component {
 
     constructor(props) {
         super(props);
+        this.clickPageItem = this.clickPageItem.bind(this);
         this.state = {
             bg: bgColor[Math.round(Math.random() * 8)],
             target: getTarget("type") || "hot",
@@ -40,7 +41,8 @@ class StorageApp extends React.Component {
             <div>
                 <HeaderComponent acrive_code={2} showDocMenu={this.state.showDocMenu}/>
                 <StorageView videoList={data} background={bg}/>
-                <PageComponent position="pull-right" activeNum={page} docCount={total} clickPageCallback={this.clickPageItem}/>
+                <PageComponent position="pull-right" activeNum={page} docCount={data ? data.length : 0} total={total}
+                               clickPageCallback={this.clickPageItem}/>
             </div>
         );
     }

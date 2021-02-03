@@ -51,11 +51,11 @@ class PageComponent extends React.Component {
     }
 
     render = () => {
-        const {position = "", activeNum = 1, docCount = 1, sumCount = 10} = this.props;
+        const {position = "", activeNum = 1, docCount = 1, total = 10} = this.props;
         return (
             <div className="container">
                 <ul className={"pagination " + position}>
-                    {this.renderPage(activeNum, docCount, sumCount)}
+                    {this.renderPage(activeNum + 1, docCount, total)}
                 </ul>
             </div>
         );
