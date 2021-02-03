@@ -179,7 +179,7 @@ class VideoManagerApp extends React.Component {
                     {label: "视频编码", key: "codec", val: codec_long_name, viewOnly: true},
                     {label: "大小", key: "size", val: size, viewOnly: true},
                     {label: "分辨率", key: "resolving", val: `${coded_width}*${coded_height}`, viewOnly: true},
-                    {label: "时长", key: "duration", val: duration, viewOnly: true},
+                    {label: "时长", key: "duration", val: parseFloat(duration), viewOnly: true},
                     {label: "视频标题", key: "title", placeholder: "输入视频标题", val: videoName},
                     {label: "描述", key: "describe", placeholder: "输入视频描述信息", type: "multiline"},
                 ],
