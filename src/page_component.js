@@ -5,6 +5,11 @@ class PageComponent extends React.Component {
         super(props);
     }
 
+    clickPage = (event) => {
+        const clickNum = event.target.getAttribute("data-reflect") || 1;
+        this.props.clickPageCallback(clickNum);
+    }
+
     renderPage = (activeNum, docCount, sumCount = 10) => {
         const html = [];
         html.push(activeNum !== 1 ? (
