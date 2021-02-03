@@ -198,7 +198,15 @@ class VideoManagerApp extends React.Component {
         }
         this.setState({showNewVideoWindow: false});
         Object.assign(instance, value);
-        console.log(instance);
+        Req({
+            method: "POST",
+            url: "/backend/aip/video",
+            data: instance
+        }).then(() => {
+            alert("创建视频成功");
+        }).catch(({msg = ""}) => {
+            alert("创建视频失败。 " + msg);
+        });
     }
 
     render = () => {

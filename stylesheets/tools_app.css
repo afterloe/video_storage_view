@@ -173,7 +173,8 @@ model div mask
     display: inline-block;
     text-align: right;
     width: 12rem;
-    margin-right: 3rem;
+    margin: .5rem 3rem 0 0;
+    vertical-align: top;
 }
 
 .mask-body .input-view label::after {
