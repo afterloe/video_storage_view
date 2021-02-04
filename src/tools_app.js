@@ -330,10 +330,10 @@ class VideoManagerApp extends React.Component {
 
     deleteVideo = () => {
         const that = this;
-        const {id} = this.state();
+        const {instance} = this.state;
         Req({
             method: "DELETE",
-            url: "/backend/aip/video?id=" + id,
+            url: "/backend/aip/video?id=" + instance,
         }).then(() => {
             that.renderVideoList();
         });
