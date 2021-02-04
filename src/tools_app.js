@@ -102,7 +102,8 @@ class VideoManagerApp extends React.Component {
     closeWindow = () => {
         this.setState({
             showScanWindow: false,
-            showNewVideoWindow: false
+            showNewVideoWindow: false,
+            showVideoDetailWindow: false,
         });
     }
 
@@ -245,7 +246,7 @@ class VideoManagerApp extends React.Component {
                                             className="col-md-2">{size / 1000 > 1000 ? size / 1000000 + " MB" : size / 1000 + " KB"}</div>
                                         <div className="col-md-3">{modifyTime}</div>
                                         <div className="col-md-2 options">
-                                            <span>详情</span>
+                                            <span onClick={() => this.showVideoDetail(v)}>详情</span>
                                             <span>修改</span>
                                             <span>下架</span>
                                         </div>
@@ -267,10 +268,33 @@ class VideoManagerApp extends React.Component {
         });
     }
 
+    showVideoDetail = video => {
+        const {title, name, describe, duration, height, width, size, path, createTime, modifyTime} = video;
+        this.setState({
+            showVideoDetailWindow: true,
+            argsGroup: [
+                {label: "视频标题", key: "title", val: title, viewOnly: true},
+                {label: "上新时间", key: "createTime", val: createTime, viewOnly: true},
+                {label: "上架时间", key: "modifyTime", val: modifyTime, viewOnly: true},
+                {label: "描述", key: "describe", val: describe, type: "multiline", viewOnly: true},
+                {label: "唯一标识码", key: "name", val: name, viewOnly: true},
+                {label: "视频存储路径", key: "path", val: path, viewOnly: true},
+                {label: "大小", key: "size", val: size, viewOnly: true},
+                {label: "分辨率", key: "resolving", val: `${width}*${height}`, viewOnly: true},
+                {label: "时长", key: "duration", val: duration + " 秒", viewOnly: true},
+            ],
+        });
+    }
+
+    videoDetail = () => {
+        this.closeWindow();
+    }
+
     render = () => {
         const {
             showScanWindow = false,
             showNewVideoWindow = false,
+            showVideoDetailWindow = false,
             argsGroup = [],
             viewContentHTML = "",
             pageComponentHTML = ""
@@ -282,6 +306,8 @@ class VideoManagerApp extends React.Component {
                            then={this.scanDir} cannel={this.closeWindow}/>
                 <InputView showWindow={showNewVideoWindow} title="视频上新" argsGroup={argsGroup}
                            then={this.newVideo} cannel={this.closeWindow}/>
+                <InputView showWindow={showVideoDetailWindow} title="视频详情" argsGroup={argsGroup}
+                           then={this.videoDetail} cannel={this.closeWindow}/>
 
                 <div className="top">
                     <div className="title">视频管理</div>
