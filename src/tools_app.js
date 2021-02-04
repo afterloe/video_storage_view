@@ -99,6 +99,10 @@ class VideoManagerApp extends React.Component {
         this.clickPageItem = this.clickPageItem.bind(this);
     }
 
+    componentDidMount() {
+        this.renderVideoList();
+    }
+
     closeWindow = () => {
         this.setState({
             showScanWindow: false,
