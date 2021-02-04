@@ -104,6 +104,7 @@ class VideoManagerApp extends React.Component {
             showScanWindow: false,
             showNewVideoWindow: false,
             showVideoDetailWindow: false,
+            showModifyVideoWindow: false,
         });
     }
 
@@ -247,7 +248,7 @@ class VideoManagerApp extends React.Component {
                                         <div className="col-md-3">{modifyTime}</div>
                                         <div className="col-md-2 options">
                                             <span onClick={() => this.showVideoDetail(v)}>详情</span>
-                                            <span>修改</span>
+                                            <span onClick={() => this.showModifyVideo(v)}>修改</span>
                                             <span>下架</span>
                                         </div>
                                     </div>)
@@ -290,11 +291,38 @@ class VideoManagerApp extends React.Component {
         this.closeWindow();
     }
 
+    showModifyVideo = video => {
+        const {title, describe} = video;
+        this.setState({
+            showModifyVideoWindow: true,
+            argsGroup: [
+                {label: "视频标题", key: "title", val: title},
+                {label: "描述", key: "describe", val: describe, type: "multiline"},
+            ],
+            instance: video,
+        });
+    }
+
+    modifyVideo = (value) => {
+        const that = this;
+        const {instance} = this.state;
+        Object.assign(instance, value)
+        Req({
+            method: "POST",
+            url: "/backend/aip/video",
+            data: instance
+        }).then(() => {
+            that.renderVideoList();
+        });
+        this.closeWindow();
+    }
+
     render = () => {
         const {
             showScanWindow = false,
             showNewVideoWindow = false,
             showVideoDetailWindow = false,
+            showModifyVideoWindow = false,
             argsGroup = [],
             viewContentHTML = "",
             pageComponentHTML = ""
@@ -308,7 +336,8 @@ class VideoManagerApp extends React.Component {
                            then={this.newVideo} cannel={this.closeWindow}/>
                 <InputView showWindow={showVideoDetailWindow} title="视频详情" argsGroup={argsGroup}
                            then={this.videoDetail} cannel={this.closeWindow}/>
-
+                <InputView showWindow={showModifyVideoWindow} title="修改视频信息" argsGroup={argsGroup}
+                           then={this.modifyVideo} cannel={this.closeWindow}/>
                 <div className="top">
                     <div className="title">视频管理</div>
                     <div className="bar">
