@@ -105,6 +105,7 @@ class VideoManagerApp extends React.Component {
             showNewVideoWindow: false,
             showVideoDetailWindow: false,
             showModifyVideoWindow: false,
+            showDeleteVideoWindow: false,
         });
     }
 
@@ -249,7 +250,7 @@ class VideoManagerApp extends React.Component {
                                         <div className="col-md-2 options">
                                             <span onClick={() => this.showVideoDetail(v)}>详情</span>
                                             <span onClick={() => this.showModifyVideo(v)}>修改</span>
-                                            <span>下架</span>
+                                            <span onClick={() => this.showDeleteVideo(v)}>下架</span>
                                         </div>
                                     </div>)
                             }) : (<span className="no-value">未上架视频</span>)}
@@ -317,15 +318,39 @@ class VideoManagerApp extends React.Component {
         this.closeWindow();
     }
 
+    showDeleteVideo = video => {
+        const {id, title} = video;
+        this.setState({
+            showDeleteVideoWindow: true,
+            argsGroup: [],
+            msg: "确认下架视频 " + title,
+            instance: id,
+        })
+    }
+
+    deleteVideo = () => {
+        const that = this;
+        const {id} = this.state();
+        Req({
+            method: "DELETE",
+            url: "/backend/aip/video?id=" + id,
+        }).then(() => {
+            that.renderVideoList();
+        });
+        this.closeWindow();
+    }
+
     render = () => {
         const {
             showScanWindow = false,
             showNewVideoWindow = false,
             showVideoDetailWindow = false,
             showModifyVideoWindow = false,
+            showDeleteVideoWindow = false,
             argsGroup = [],
             viewContentHTML = "",
-            pageComponentHTML = ""
+            pageComponentHTML = "",
+            msg = ""
         } = this.state;
         return (
             <div className="main">
@@ -338,6 +363,8 @@ class VideoManagerApp extends React.Component {
                            then={this.videoDetail} cannel={this.closeWindow}/>
                 <InputView showWindow={showModifyVideoWindow} title="修改视频信息" argsGroup={argsGroup}
                            then={this.modifyVideo} cannel={this.closeWindow}/>
+                <InputView showWindow={showDeleteVideoWindow} title="确认下架视频" msg={msg}
+                           then={this.deleteVideo} cannel={this.closeWindow}/>
                 <div className="top">
                     <div className="title">视频管理</div>
                     <div className="bar">
