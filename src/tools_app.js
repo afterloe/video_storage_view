@@ -93,7 +93,10 @@ class VideoManagerApp extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            viewContentHTML: (<div className="no-value">未有信息显示</div>)
+        };
+        this.clickPageItem = this.clickPageItem.bind(this);
     }
 
     closeWindow = () => {
@@ -133,13 +136,10 @@ class VideoManagerApp extends React.Component {
                                     <div className="col-md-7">{name}</div>
                                     <div className="col-md-2">{Math.round(size * 1000) / 1000 / 1000} KB</div>
                                     <div className="col-md-2 options">
-                                        <span onClick={() => this.openNewVideoWindow({
-                                            name,
-                                            path,
-                                            size,
-                                            mode,
-                                            modifyTime
-                                        })}>上新</span>
+                                        <span onClick={() => this.openNewVideoWindow(
+                                            {name, path, size, mode, modifyTime})}>
+                                            上新
+                                        </span>
                                     </div>
                                 </div>) : ""}
                         </div>
@@ -209,8 +209,72 @@ class VideoManagerApp extends React.Component {
         });
     }
 
+    clickPageItem(activeNum = 0) {
+        this.setState({
+            page: activeNum
+        });
+        this.renderVideoList();
+    }
+
+    renderVideoList = () => {
+        const that = this;
+        const {page = 0, count = 10} = this.state;
+        Req({
+            method: "GET",
+            url: `/backend/aip/video/list?page=${page}&count=${count}`,
+        }).then(value => {
+            const {total, data = []} = value;
+            that.setState({
+                viewContentHTML: (
+                    <div className="view">
+                        <div className="title">
+                            <div className="col-md-1"></div>
+                            <div className="col-md-4">名称</div>
+                            <div className="col-md-2">大小</div>
+                            <div className="col-md-3">修改时间</div>
+                            <div className="col-md-2">操作</div>
+                        </div>
+                        <div className="values">
+                            {data ? data.map((v, i) => {
+                                const {title, size, modifyTime} = v;
+                                return (
+                                    <div className="value">
+                                        <div className="col-md-1">{i + 1}</div>
+                                        <div className="col-md-4">{title}</div>
+                                        <div
+                                            className="col-md-2">{size / 1000 > 1000 ? size / 1000000 + " MB" : size / 1000 + " KB"}</div>
+                                        <div className="col-md-3">{modifyTime}</div>
+                                        <div className="col-md-2 options">
+                                            <span>详情</span>
+                                            <span>修改</span>
+                                            <span>下架</span>
+                                        </div>
+                                    </div>)
+                            }) : (<span className="no-value">未上架视频</span>)}
+                        </div>
+                    </div>
+                ),
+                pageComponentHTML: (
+                    <div className="view">
+                        <PageComponent position="pull-left" activeNum={page} docCount={data ? data.length : 0}
+                                       total={total}
+                                       clickPageCallback={that.clickPageItem}/>
+                    </div>
+                )
+            });
+        }).catch(({code, message}) => {
+            checkErrorCode(code);
+        });
+    }
+
     render = () => {
-        const {showScanWindow = false, showNewVideoWindow = false, argsGroup = [], viewContentHTML = ""} = this.state;
+        const {
+            showScanWindow = false,
+            showNewVideoWindow = false,
+            argsGroup = [],
+            viewContentHTML = "",
+            pageComponentHTML = ""
+        } = this.state;
         return (
             <div className="main">
 
@@ -224,16 +288,12 @@ class VideoManagerApp extends React.Component {
                     <div className="bar">
                         <div>
                             <div onClick={this.openScanWindow}>目录扫描</div>
-                            <div>视频库</div>
+                            <div onClick={this.renderVideoList}>视频库</div>
                         </div>
                     </div>
                 </div>
                 {viewContentHTML}
-                {/*<div className="view">*/}
-                {/*    <div>*/}
-                {/*        <PageComponent position="pull-left" activeNum={1} docCount={3}/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                {pageComponentHTML}
             </div>
         );
     }
