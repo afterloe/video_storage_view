@@ -5,17 +5,21 @@ class PageComponent extends React.Component {
         super(props);
     }
 
+    clickPage = (num) => {
+        this.props.clickPageCallback(num - 1);
+    }
+
     renderPage = (activeNum, docCount, sumCount = 10) => {
         const html = [];
-        html.push(activeNum !== 1 ? (
-            <li>
-                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
+        html.push(activeNum === 0 ? (
+            <li className="disabled">
+                <span aria-label="Previous" data-reflect="1">
                     <span aria-hidden="true">&laquo;</span>
                 </span>
             </li>
         ) : (
-            <li className="disabled">
-                <span aria-label="Previous" data-reflect="1">
+            <li>
+                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
                     <span aria-hidden="true">&laquo;</span>
                 </span>
             </li>
@@ -25,11 +29,11 @@ class PageComponent extends React.Component {
         for (let i = started; i <= end; i++) {
             html.push(
                 <li className={i === activeNum ? "active" : ""}>
-                    <span className="rounded" data-reflect={i} onClick={this.clickPage}>{i}</span>
+                    <span className="rounded" onClick={() => this.clickPage(i)}>{i}</span>
                 </li>
             );
         }
-        html.push(activeNum === end ? (
+        html.push(activeNum + 1 === end ? (
             <li className="disabled">
             <span aria-label="Next" data-reflect={html.length - 1}>
                 <span aria-hidden="true">&raquo;</span>
@@ -46,11 +50,11 @@ class PageComponent extends React.Component {
     }
 
     render = () => {
-        const {position = "", activeNum = 1, docCount = 1, sumCount = 10} = this.props;
+        const {position = "", activeNum = 0, docCount = 1, total = 10} = this.props;
         return (
             <div className="container">
                 <ul className={"pagination " + position}>
-                    {this.renderPage(activeNum, docCount, sumCount)}
+                    {this.renderPage(activeNum, docCount, total)}
                 </ul>
             </div>
         );
