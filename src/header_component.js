@@ -132,7 +132,8 @@ class HeaderComponent extends React.Component {
             </span>
         ) : (
             <li className="first">
-                <a href="./login.html" className="a_href">登录</a>
+                <a href="./login.html" className="a_href">登录</a> |
+                <a href="./register.html" className="a_href">注册</a>
             </li>
         );
     }
