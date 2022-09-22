@@ -3,6 +3,7 @@
 class PageComponent extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props);
     }
 
     clickPage = (num) => {
@@ -35,14 +36,14 @@ class PageComponent extends React.Component {
         }
         html.push(activeNum + 1 === end ? (
             <li className="disabled">
-            <span aria-label="Next" data-reflect={html.length - 1}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
+                <span aria-label="Next" data-reflect={html.length - 1}>
+                    <span aria-hidden="true">&raquo;</span>
+                </span>
             </li>) : (
             <li>
-            <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
-                <span aria-hidden="true">&raquo;</span>
-            </span>
+                <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
+                    <span aria-hidden="true">&raquo;</span>
+                </span>
             </li>
         ));
 
@@ -50,7 +51,7 @@ class PageComponent extends React.Component {
     }
 
     render = () => {
-        const {position = "", activeNum = 0, docCount = 1, total = 10} = this.props;
+        const { position = "", activeNum = 0, docCount = 1, total = 10 } = this.props;
         return (
             <div className="container">
                 <ul className={"pagination " + position}>
