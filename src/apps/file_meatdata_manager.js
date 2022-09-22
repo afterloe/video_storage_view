@@ -7,18 +7,22 @@ class FileMeatdataManagerApp extends React.Component {
     constructor(prots) {
         super(prots);
         this.state = {
+            page: 1,
+            count: 100,
             viewContentHTML: (<div className="no-value">未有信息显示</div>)
         };
+        
+        this.loadFileMeatdata = this.loadFileMeatdata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
     }
 
     componentDidMount() {
-        this.renderFileMeatdataList();
+        const {page, count} = this.state;
+        this.loadFileMeatdata(page, count);
     }
 
-    renderFileMeatdataList() {
+    loadFileMeatdata(page, count) {
         const that = this;
-        const { page = 0, count = 10 } = this.state;
         Req({
             method: "GET",
             url: `/backend/aip/meatdata/all?page=${page}&count=${count}`,
@@ -26,51 +30,58 @@ class FileMeatdataManagerApp extends React.Component {
             const { total, data = [] } = value;
             that.setState({
                 total,
-                docCount: data ? data.length : 0,
-                viewContentHTML: (
-                    <div className="view">
-                        <div className="title">
-                            <div className="col-md-1"></div>
-                            <div className="col-md-5">名称</div>
-                            <div className="col-md-2">大小</div>
-                            <div className="col-md-2">类型</div>
-                            <div className="col-md-2">操作</div>
-                        </div>
-                        <div className="values">
-                            {data ? data.map((v, i) => {
-                                const { fileName, fileSize, file_type } = v;
-                                return (
-                                    <div className="value">
-                                        <div className="col-md-1">{i + 1}</div>
-                                        <div className="col-md-5">{fileName}</div>
-                                        <div
-                                            className="col-md-2">{fileSize / 1000 > 1000 ? size / 1000000 + " MB" : fileSize / 1000 + " KB"}</div>
-                                        <div className="col-md-2">{file_type}</div>
-                                        <div className="col-md-2 options">
-                                            <span onClick={() => this.showVideoDetail(v)}>详情</span>
-                                            <span onClick={() => this.showModifyVideo(v)}>修改</span>
-                                            <span onClick={() => this.showDeleteVideo(v)}>下架</span>
-                                        </div>
-                                    </div>)
-                            }) : (<span className="no-value">未上架视频</span>)}
-                        </div>
-                    </div>
-                )
+                data
             });
         }).catch(({ code, message }) => {
             checkErrorCode(code);
+            that.setState({
+                viewContentHTML: (<div className="no-value">{message}</div>)
+            });
         });
+    }
+
+    renderFileMeatdataList(data = []) {
+        return (
+            <div className="view">
+                <div className="title">
+                    <div className="col-md-1"></div>
+                    <div className="col-md-5">名称</div>
+                    <div className="col-md-2">大小</div>
+                    <div className="col-md-2">类型</div>
+                    <div className="col-md-2">操作</div>
+                </div>
+                <div className="values">
+                    {data ? data.map((v, i) => {
+                        const { fileName, fileSize, file_type } = v;
+                        return (
+                            <div className="value">
+                                <div className="col-md-1">{i + 1}</div>
+                                <div className="col-md-5">{fileName}</div>
+                                <div
+                                    className="col-md-2">{fileSize / 1000 > 1000 ? fileSize / 1000000 + " MB" : fileSize / 1000 + " KB"}</div>
+                                <div className="col-md-2">{file_type}</div>
+                                <div className="col-md-2 options">
+                                    <span onClick={() => this.showVideoDetail(v)}>详情</span>
+                                    <span onClick={() => this.showModifyVideo(v)}>修改</span>
+                                    <span onClick={() => this.showDeleteVideo(v)}>下架</span>
+                                </div>
+                            </div>)
+                    }) : (<span className="no-value">未上架视频</span>)}
+                </div>
+            </div>
+        );
     }
 
     clickPageItem(activeNum = 0) {
+        const {count} = this.state;
         this.setState({
             page: activeNum
         });
-        this.renderFileMeatdataList();
+        this.loadFileMeatdata(activeNum, count)
     }
 
     render() {
-        const { viewContentHTML = "", page = 0, docCount = 10, total = 10} = this.state;
+        const { data, page, count, total} = this.state;
         return (
             <div className="main">
 
@@ -83,11 +94,10 @@ class FileMeatdataManagerApp extends React.Component {
                         </div>
                     </div>
                 </div>
-                {viewContentHTML}
+                {this.renderFileMeatdataList(data)}
                 <div className="view">
-                    <PageComponent position="pull-left" activeNum={page} docCount={docCount}
-                        total={total}
-                        clickPageCallback={this.clickPageItem} />
+                    <PageComponent position="pull-left" activeNum={page} docCount={count}
+                        total={total} clickPageCallback={this.clickPageItem} />
                 </div>
             </div>
         );

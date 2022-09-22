@@ -3,16 +3,15 @@
 class PageComponent extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
 
-    clickPage = (num) => {
-        this.props.clickPageCallback(num - 1);
+    clickPage(num) {
+        this.props.clickPageCallback(num);
     }
 
-    renderPage = (activeNum, docCount, sumCount = 10) => {
+    renderPage(activeNum, docCount, total = 10) {
         const html = [];
-        html.push(activeNum === 0 ? (
+        html.push(activeNum === 1 ? (
             <li className="disabled">
                 <span aria-label="Previous" data-reflect="1">
                     <span aria-hidden="true">&laquo;</span>
@@ -20,38 +19,52 @@ class PageComponent extends React.Component {
             </li>
         ) : (
             <li>
-                <span aria-label="Previous" data-reflect="1" onClick={this.clickPage}>
+                <span aria-label="Previous" data-reflect="1" onClick={() => this.clickPage(1)}>
                     <span aria-hidden="true">&laquo;</span>
                 </span>
             </li>
         ));
-        const end = docCount % sumCount === 0 ? docCount / sumCount : Math.ceil(docCount / sumCount);
-        const started = activeNum - sumCount / 2 < 0 ? 1 : activeNum - sumCount / 2;
-        for (let i = started; i <= end; i++) {
+        
+
+        let end = Math.ceil(total / docCount) + 1
+        let pageEnd = end;
+        let started = 1;
+        
+        if (end - activeNum > 5) {
+            started = activeNum - 5 >= 1 ? activeNum - 5: 1;
+            end = activeNum + 6;
+        } else {
+            started = activeNum - 6;
+        }
+        if (activeNum <= 5) {
+            end = 10;
+        }
+
+        for (let i = started; i < end; i++) {
             html.push(
                 <li className={i === activeNum ? "active" : ""}>
                     <span className="rounded" onClick={() => this.clickPage(i)}>{i}</span>
                 </li>
             );
         }
-        html.push(activeNum + 1 === end ? (
+        html.push(activeNum === end - 1 ? (
             <li className="disabled">
                 <span aria-label="Next" data-reflect={html.length - 1}>
                     <span aria-hidden="true">&raquo;</span>
                 </span>
             </li>) : (
             <li>
-                <span aria-label="Next" data-reflect={html.length - 1} onClick={this.clickPage}>
+                <span aria-label="Next" data-reflect={html.length - 1} onClick={() => this.clickPage(pageEnd - 1)}>
                     <span aria-hidden="true">&raquo;</span>
                 </span>
             </li>
         ));
 
-        return html;
+        return html
     }
 
-    render = () => {
-        const { position = "", activeNum = 0, docCount = 1, total = 10 } = this.props;
+    render() {
+        const { position = "", activeNum, docCount, total } = this.props;
         return (
             <div className="container">
                 <ul className={"pagination " + position}>
