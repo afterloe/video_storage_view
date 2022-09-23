@@ -16,7 +16,8 @@ class FileMetadataManagerApp extends React.Component {
         this.clickPageItem = this.clickPageItem.bind(this);
         this.inputKeyword = this.inputKeyword.bind(this);
         this.enterEnter = this.enterEnter.bind(this);
-        this.reflash = this.reflash.bind(this)
+        this.reflash = this.reflash.bind(this);
+        this.changPage = this.changPage.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +32,7 @@ class FileMetadataManagerApp extends React.Component {
             url: `/backend/aip/metadata/search?keyword=${keyword}&page=${activeNum ? activeNum : page}&count=${count}`,
         }).then(value => {
             const { total, data = [] } = value;
-            that.setState({ total, data, errorMsg: "" });
+            that.setState({ total, data, errorMsg: "", page: 1 });
         }).catch(({ code, message }) => {
             checkErrorCode(code);
             that.setState({
@@ -102,7 +103,12 @@ class FileMetadataManagerApp extends React.Component {
             that.setState({ errorMsg: "请输入搜索内容", total: 0 });
             return;
         }
-        this.findFileMetadata()
+        this.findFileMetadata(1)
+    }
+
+    changPage(val) {
+        const { page } = this.state;
+        this.clickPageItem(page + val < 1 ? 1 : page + val);
     }
 
     clickPageItem(activeNum = 0) {
@@ -119,7 +125,7 @@ class FileMetadataManagerApp extends React.Component {
     }
 
     reflash() {
-        this.setState({keyword: undefined, page: 1, activeNum: 1});
+        this.setState({ keyword: undefined, page: 1, activeNum: 1 });
         this.loadFileMetadata(1);
     }
 
@@ -142,8 +148,8 @@ class FileMetadataManagerApp extends React.Component {
                             </div>
                         </div>
                         <div className="pull-right">
-                            <div>上一页</div>
-                            <div>下一页</div>
+                            <div onClick={() => this.changPage(-1)}>上一页</div>
+                            <div onClick={() => this.changPage(1)}>下一页</div>
                         </div>
                     </div>
                 </div>
