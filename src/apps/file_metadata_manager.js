@@ -10,7 +10,6 @@ class FileMetadataManagerApp extends React.Component {
             page: 1,
             count: 100
         };
-
         this.loadFileMetadata = this.loadFileMetadata.bind(this);
         this.findFileMetadata = this.findFileMetadata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
@@ -18,6 +17,10 @@ class FileMetadataManagerApp extends React.Component {
         this.enterEnter = this.enterEnter.bind(this);
         this.reflash = this.reflash.bind(this);
         this.changPage = this.changPage.bind(this);
+
+        this.openLinkedWindows = this.openLinkedWindows.bind(this);
+        this.closeWindow = this.closeWindow.bind(this);
+        this.linkedFileMetadata = this.linkedFileMetadata.bind(this);
     }
 
     componentDidMount() {
@@ -56,6 +59,36 @@ class FileMetadataManagerApp extends React.Component {
         });
     }
 
+    openLinkedWindows(filemetadata) {
+        const { createTime, fileName, fileSize, file_type, fullpath, id, isLink } = filemetadata;
+        this.setState({
+            showLinkedWindows: true,
+            instance: filemetadata,
+            argsGroup: [
+                { label: "id", key: "name", val: id, viewOnly: true },
+                { label: "源数据存储位置", key: "path", val: fullpath, viewOnly: true },
+                { label: "大小", key: "size", val: fileSize, viewOnly: true },
+                { label: "文件名", key: "codec", val: fileName, viewOnly: true },
+                { label: "文件类型", key: "resolving", val: file_type, viewOnly: true },
+                { label: "创建时间", key: "duration", val: dateFormat("YYYY-mm-dd HH:MM:SS", new Date(createTime)), viewOnly: true },
+                { label: "是否入库", key: "title", val: isLink? "已入库":"未入库", viewOnly: true }
+            ],
+        });
+    }
+
+    closeWindow() {
+        this.setState({
+            showLinkedWindows: false
+        });
+    }
+
+    linkedFileMetadata(value) {
+
+        this.setState({
+            showLinkedWindows: false
+        });
+    }
+
     renderFileMetadataList(data = []) {
         return (
             <div className="view">
@@ -70,7 +103,7 @@ class FileMetadataManagerApp extends React.Component {
                     {data ? data.map((v, i) => {
                         const { fileName, fileSize, file_type } = v;
                         return (
-                            <div className="value">
+                            <div className="value" onClick={() => this.openLinkedWindows(v)}>
                                 <div className="col-md-1">{i + 1}</div>
                                 <div className="col-md-7">{fileName}</div>
                                 <div className="col-md-1">
@@ -80,7 +113,7 @@ class FileMetadataManagerApp extends React.Component {
                                 <div className="col-md-2 options">
                                     <span onClick={() => this.showVideoDetail(v)}>详情</span>
                                     <span onClick={() => this.showModifyVideo(v)}>入库</span>
-                                    <span onClick={() => this.showDeleteVideo(v)}>下架</span>
+                                    <span onClick={() => this.showDeleteVideo(v)}>删除</span>
                                 </div>
                             </div>)
                     }) : <span className="no-value">无内容显示</span>}
@@ -130,9 +163,11 @@ class FileMetadataManagerApp extends React.Component {
     }
 
     render() {
-        const { data, page, count, total, errorMsg = "" } = this.state;
+        const { data, page, count, total, errorMsg = "", showLinkedWindows = false, argsGroup = [] } = this.state;
         return (
             <div className="main">
+                <InputView showWindow={showLinkedWindows} title="连接元数据" argsGroup={argsGroup}
+                    then={this.linkedFileMetadata} cannel={this.closeWindow} />
 
                 <div className="top">
                     <div className="title">元数据管理</div>
