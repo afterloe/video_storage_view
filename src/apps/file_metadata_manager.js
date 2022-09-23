@@ -91,7 +91,7 @@ class FileMetadataManagerApp extends React.Component {
                 })
                 const {duration} = format;
                 argsGroup.push({ label: "视频时长", key: "duration", val: duration, viewOnly: true });
-                
+                Object.assign(filemetadata, {duration});       
             } else {
                 argsGroup.push({ label: "是否为视频文件", key: "isVideo", val: "false", viewOnly: true })
             }
