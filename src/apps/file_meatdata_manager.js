@@ -14,6 +14,8 @@ class FileMeatdataManagerApp extends React.Component {
 
         this.loadFileMeatdata = this.loadFileMeatdata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
+        this.inputKeyword = this.inputKeyword.bind(this);
+        this.enterEnter = this.enterEnter.bind(this);
     }
 
     componentDidMount() {
@@ -73,6 +75,32 @@ class FileMeatdataManagerApp extends React.Component {
         );
     }
 
+    inputKeyword(event) {
+        this.setState({keyword: event.target.value});
+    }
+
+    enterEnter(event) {
+        if (event.keyCode !== 13) {
+            return;
+        }
+        const {keyword, count} = this.state;
+        Req({
+            method: "GET",
+            url: `/backend/aip/meatdata/search?keyword=${keyword}&page=1&count=${count}`,
+        }).then(value => {
+            const { total, data = [] } = value;
+            that.setState({
+                total,
+                data
+            });
+        }).catch(({ code, message }) => {
+            checkErrorCode(code);
+            that.setState({
+                viewContentHTML: (<div className="no-value">{message}</div>)
+            });
+        });
+    }
+
     clickPageItem(activeNum = 0) {
         const { count } = this.state;
         this.setState({
@@ -93,7 +121,7 @@ class FileMeatdataManagerApp extends React.Component {
                             <div>统计分类</div>
                             <div>视频库</div>
                             <div>
-                                <input type="text" id="search_keyword" onChange={this.inputKeyword} aria-describedby="搜索建议"
+                                <input type="text" id="search_keyword" onChange={this.inputKeyword} onKeyDown={this.enterEnter} aria-describedby="搜索建议"
                                     placeholder="输入关键词检索"
                                     autoComplete="off" />
                             </div>
