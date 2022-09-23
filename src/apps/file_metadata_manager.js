@@ -3,16 +3,15 @@
 /**
  * 元数据管理
  */
-class FileMeatdataManagerApp extends React.Component {
+class FileMetadataManagerApp extends React.Component {
     constructor(prots) {
         super(prots);
         this.state = {
             page: 1,
-            count: 100,
-            viewContentHTML: (<div className="no-value">未有信息显示</div>)
+            count: 100
         };
 
-        this.loadFileMeatdata = this.loadFileMeatdata.bind(this);
+        this.loadFileMetadata = this.loadFileMetadata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
         this.inputKeyword = this.inputKeyword.bind(this);
         this.enterEnter = this.enterEnter.bind(this);
@@ -20,29 +19,24 @@ class FileMeatdataManagerApp extends React.Component {
 
     componentDidMount() {
         const { page, count } = this.state;
-        this.loadFileMeatdata(page, count);
+        this.loadFileMetadata(page, count);
     }
 
-    loadFileMeatdata(page, count) {
+    loadFileMetadata(page, count) {
         const that = this;
         Req({
             method: "GET",
-            url: `/backend/aip/meatdata/all?page=${page}&count=${count}`,
+            url: `/backend/aip/metadata/all?page=${page}&count=${count}`,
         }).then(value => {
             const { total, data = [] } = value;
-            that.setState({
-                total,
-                data
-            });
+            that.setState({ total, data, errorMsg: "" });
         }).catch(({ code, message }) => {
             checkErrorCode(code);
-            that.setState({
-                viewContentHTML: (<div className="no-value">{message}</div>)
-            });
+            that.setState({ errorMsg: message });
         });
     }
 
-    renderFileMeatdataList(data = []) {
+    renderFileMetadataList(data = []) {
         return (
             <div className="view">
                 <div className="title">
@@ -69,34 +63,36 @@ class FileMeatdataManagerApp extends React.Component {
                                     <span onClick={() => this.showDeleteVideo(v)}>下架</span>
                                 </div>
                             </div>)
-                    }) : (<span className="no-value">未上架视频</span>)}
+                    }) : <span className="no-value">无内容显示</span>}
                 </div>
             </div>
         );
     }
 
     inputKeyword(event) {
-        this.setState({keyword: event.target.value});
+        this.setState({ keyword: event.target.value });
     }
 
     enterEnter(event) {
+        const that = this;
         if (event.keyCode !== 13) {
             return;
         }
-        const {keyword, count} = this.state;
+        const { keyword, count } = this.state;
+        if (!keyword) {
+            that.setState({errorMsg: "请输入搜索内容", total: 0});
+            return;
+        }
         Req({
             method: "GET",
-            url: `/backend/aip/meatdata/search?keyword=${keyword}&page=1&count=${count}`,
+            url: `/backend/aip/metadata/search?keyword=${keyword}&page=1&count=${count}`,
         }).then(value => {
             const { total, data = [] } = value;
-            that.setState({
-                total,
-                data
-            });
+            that.setState({ total, data, errorMsg: "" });
         }).catch(({ code, message }) => {
             checkErrorCode(code);
             that.setState({
-                viewContentHTML: (<div className="no-value">{message}</div>)
+                errorMsg: message
             });
         });
     }
@@ -106,11 +102,11 @@ class FileMeatdataManagerApp extends React.Component {
         this.setState({
             page: activeNum
         });
-        this.loadFileMeatdata(activeNum, count)
+        this.loadFileMetadata(activeNum, count)
     }
 
     render() {
-        const { data, page, count, total } = this.state;
+        const { data, page, count, total, errorMsg = "" } = this.state;
         return (
             <div className="main">
 
@@ -132,7 +128,7 @@ class FileMeatdataManagerApp extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.renderFileMeatdataList(data)}
+                {errorMsg.length != 0 ? <span className="no-value">{errorMsg}</span> : this.renderFileMetadataList(data)}
                 <div className="view">
                     <PageComponent position="pull-left" activeNum={page} docCount={count}
                         total={total} clickPageCallback={this.clickPageItem} />

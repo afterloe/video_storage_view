@@ -11,7 +11,7 @@ class PageComponent extends React.Component {
 
     renderPage(activeNum, docCount, total = 10) {
         const html = [];
-        if (activeNum == 0 && total == 0) {
+        if (total == 0) {
             return html;
         }
         html.push(activeNum === 1 ? (

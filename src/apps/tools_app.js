@@ -18,7 +18,7 @@ class ToolsApp extends React.Component {
             case 3:
                 return <VideoManagerApp />
             case 9:
-                return <FileMeatdataManagerApp />
+                return <FileMetadataManagerApp />
         }
     };
 
