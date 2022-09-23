@@ -29,17 +29,26 @@ class PageComponent extends React.Component {
         ));
 
         let end = Math.ceil(total / docCount) + 1
+
+        if (end > 10) {
+            if (end - activeNum > 5) {
+                started = activeNum - 5 >= 1 ? activeNum - 5: 1;
+                end = activeNum + 6;
+            } else {
+                started = activeNum - 6;
+            }
+            if (activeNum <= 5) {
+                end = 10;
+            }
+        }
+
         let pageEnd = end;
         let started = 1;
         
-        if (end - activeNum > 5) {
-            started = activeNum - 5 >= 1 ? activeNum - 5: 1;
-            end = activeNum + 6;
+        if (activeNum - started < 5) {
+            started = 1
         } else {
-            started = activeNum - 6;
-        }
-        if (activeNum <= 5) {
-            end = 10;
+            started = activeNum - 5
         }
 
         for (let i = started; i < end; i++) {

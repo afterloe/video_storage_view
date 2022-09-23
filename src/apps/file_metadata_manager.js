@@ -12,21 +12,39 @@ class FileMetadataManagerApp extends React.Component {
         };
 
         this.loadFileMetadata = this.loadFileMetadata.bind(this);
+        this.findFileMetadata = this.findFileMetadata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
         this.inputKeyword = this.inputKeyword.bind(this);
         this.enterEnter = this.enterEnter.bind(this);
     }
 
     componentDidMount() {
-        const { page, count } = this.state;
-        this.loadFileMetadata(page, count);
+        this.loadFileMetadata();
     }
 
-    loadFileMetadata(page, count) {
+    findFileMetadata(activeNum) {
         const that = this;
+        const { keyword, page, count } = that.state;
         Req({
             method: "GET",
-            url: `/backend/aip/metadata/all?page=${page}&count=${count}`,
+            url: `/backend/aip/metadata/search?keyword=${keyword}&page=${activeNum ? activeNum : page}&count=${count}`,
+        }).then(value => {
+            const { total, data = [] } = value;
+            that.setState({ total, data, errorMsg: "" });
+        }).catch(({ code, message }) => {
+            checkErrorCode(code);
+            that.setState({
+                errorMsg: message
+            });
+        });
+    }
+
+    loadFileMetadata(activeNum) {
+        const that = this;
+        const { page, count } = that.state;
+        Req({
+            method: "GET",
+            url: `/backend/aip/metadata/all?page=${activeNum ? activeNum : page}&count=${count}`,
         }).then(value => {
             const { total, data = [] } = value;
             that.setState({ total, data, errorMsg: "" });
@@ -78,31 +96,25 @@ class FileMetadataManagerApp extends React.Component {
         if (event.keyCode !== 13) {
             return;
         }
-        const { keyword, count } = this.state;
+        const { keyword } = this.state;
         if (!keyword) {
-            that.setState({errorMsg: "请输入搜索内容", total: 0});
+            that.setState({ errorMsg: "请输入搜索内容", total: 0 });
             return;
         }
-        Req({
-            method: "GET",
-            url: `/backend/aip/metadata/search?keyword=${keyword}&page=1&count=${count}`,
-        }).then(value => {
-            const { total, data = [] } = value;
-            that.setState({ total, data, errorMsg: "" });
-        }).catch(({ code, message }) => {
-            checkErrorCode(code);
-            that.setState({
-                errorMsg: message
-            });
-        });
+        this.findFileMetadata()
     }
 
     clickPageItem(activeNum = 0) {
-        const { count } = this.state;
-        this.setState({
-            page: activeNum
-        });
-        this.loadFileMetadata(activeNum, count)
+        const { page, keyword } = this.state;
+        if (page == activeNum) {
+            return;
+        }
+        this.setState({ page: activeNum });
+        if (keyword) {
+            this.findFileMetadata(activeNum)
+        } else {
+            this.loadFileMetadata(activeNum)
+        }
     }
 
     render() {
@@ -128,7 +140,7 @@ class FileMetadataManagerApp extends React.Component {
                         </div>
                     </div>
                 </div>
-                {errorMsg.length != 0 ? <span className="no-value">{errorMsg}</span> : this.renderFileMetadataList(data)}
+                {errorMsg.length != 0 ? <div className="values"><span className="no-value">{errorMsg}</span></div> : this.renderFileMetadataList(data)}
                 <div className="view">
                     <PageComponent position="pull-left" activeNum={page} docCount={count}
                         total={total} clickPageCallback={this.clickPageItem} />
