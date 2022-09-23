@@ -60,20 +60,50 @@ class FileMetadataManagerApp extends React.Component {
     }
 
     openLinkedWindows(filemetadata) {
+        const that = this;
         const { createTime, fileName, fileSize, file_type, fullpath, id, isLink } = filemetadata;
-        this.setState({
-            showLinkedWindows: true,
-            instance: filemetadata,
-            argsGroup: [
-                { label: "id", key: "name", val: id, viewOnly: true },
+        Req({
+            method: "GET",
+            url: `/backend/aip/video/analysis/file?id=${id}`
+        }).then(value => {
+            const { streams = [], format = {} } = JSON.parse(value);
+            let argsGroup = [
+                { label: "id", key: "id", val: id, viewOnly: true },
                 { label: "源数据存储位置", key: "path", val: fullpath, viewOnly: true },
                 { label: "大小", key: "size", val: fileSize, viewOnly: true },
-                { label: "文件名", key: "codec", val: fileName, viewOnly: true },
-                { label: "文件类型", key: "resolving", val: file_type, viewOnly: true },
-                { label: "创建时间", key: "duration", val: dateFormat("YYYY-mm-dd HH:MM:SS", new Date(createTime)), viewOnly: true },
-                { label: "是否入库", key: "title", val: isLink? "已入库":"未入库", viewOnly: true }
-            ],
-        });
+                { label: "文件名", key: "filename", val: fileName, viewOnly: true },
+                { label: "文件类型", key: "file_type", val: file_type, viewOnly: true },
+                { label: "创建时间", key: "create_time", val: createTime, viewOnly: true },
+                { label: "是否入库", key: "is_link", val: isLink ? "已入库" : "未入库", viewOnly: true }
+            ];
+            if (streams.length > 1) {
+                argsGroup.push({ label: "是否为视频文件", key: "isVideo", val: "true", viewOnly: true })
+                streams.map(({ width, height, codec_name, display_aspect_ratio, codec_long_name }) => {
+                    if (!width) { return; }
+                    [
+                        { label: "视频宽度", key: "width", val: width, viewOnly: true },
+                        { label: "视频高度", key: "height", val: height, viewOnly: true },
+                        { label: "播放比例", key: "display_aspect_ratio", val: display_aspect_ratio, viewOnly: true },
+                        { label: "编码名称", key: "codec_name", val: codec_name, viewOnly: true },
+                        { label: "编码信息", key: "codec_long_name", val: codec_long_name, viewOnly: true },
+                    ].map(item => argsGroup.push(item));
+                    Object.assign(filemetadata, {isVideo: true, width, height, codec_name, display_aspect_ratio, codec_long_name});
+                })
+                const {duration} = format;
+                argsGroup.push({ label: "视频时长", key: "duration", val: duration, viewOnly: true });
+                
+            } else {
+                argsGroup.push({ label: "是否为视频文件", key: "isVideo", val: "false", viewOnly: true })
+            }
+            that.setState({
+                showLinkedWindows: true,
+                instance: filemetadata,
+                argsGroup,
+            });
+        }).catch(({ code, message }) => {
+            checkErrorCode(code);
+            that.setState({ errorMsg: message });
+        })
     }
 
     closeWindow() {
@@ -82,8 +112,18 @@ class FileMetadataManagerApp extends React.Component {
         });
     }
 
-    linkedFileMetadata(value) {
-
+    linkedFileMetadata() {
+        const {instance } = this.state;
+        Req({
+            method: "PUT",
+            url: `/backend/aip/object`,
+            data: instance
+        }).then(value => {
+            
+        }).catch(({ code, message }) => {
+            checkErrorCode(code);
+            that.setState({ errorMsg: message });
+        })
         this.setState({
             showLinkedWindows: false
         });
