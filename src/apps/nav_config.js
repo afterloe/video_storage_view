@@ -54,7 +54,7 @@
                     const {id, name, data} = v;
                     return (
                         <div className="value" data={id}>
-                            <div className="col-md-2">{i + 1} - {j + 1}</div>
+                            <div className="col-md-2" style={{"padding-left": "5rem;"}}>{i + 1} - {j + 1}</div>
                             <div className="col-md-2">{name}</div>
                             <div className="col-md-5">{data}</div>
                             <div className="col-md-3 options">
