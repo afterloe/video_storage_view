@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * 管理工具页面
+ */
 class ToolsApp extends React.Component {
 
     constructor(props) {
@@ -7,7 +10,8 @@ class ToolsApp extends React.Component {
         this.state = {};
     }
 
-    renderMainView = (activeCode = 0) => {
+    // TODO
+    renderMainView = (activeCode = 9) => {
         switch (activeCode) {
             case 0:
                 return <NavConfigApp/>

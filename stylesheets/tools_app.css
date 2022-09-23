@@ -4,44 +4,44 @@
 
 .tools_app .left_control {
     cursor: default;
-    border-right: #222222 solid .1rem;
+    border-right: #f4f4f4 solid .1rem;
     position: absolute;
     left: 0;
-    border-radius: .55rem !important;
+    /* border-radius: .55rem !important; */
     bottom: 0;
-    color: #e0e0e0;
+    color: #333;
     top: 0;
-    width: 25%;
+    width: 12%;
     text-align: center;
-    background-color: #212121;
+    background-color: #ffffff;
 }
 
 .left_control .title {
     font-size: 2rem;
     font-weight: bold;
-    margin: 5rem 0 5rem 0;
+    margin: 2rem 0 2rem 0;
 }
 
 .left_control .line {
     display: block;
     height: .3rem;
-    margin: 3.5rem 3.5rem 2.5rem 3.5rem;
+    margin: 3.5rem 1.5rem 1.5rem 1.5rem;
     background-color: #e0e0e0;
 }
 
 .left_control .item {
-    font-size: 1.5rem;
+    font-size: 1.68rem;
     cursor: pointer;
     margin: 1rem auto;
 }
 
 .left_control .item:hover {
-    color: #ffffff;
+    color: #607d8b;
     font-weight: bold;
 }
 
 .left_control .item.active {
-    color: #ffffff;
+    color: #286090;
     font-weight: bold;
 }
 
@@ -53,20 +53,30 @@
     width: 100%;
     text-align: center;
     border-radius: .55rem !important;
-    background-color: #424242;
+    background-color: #f5f5f5;
 }
 
 .tools_app .main {
-    padding-left: 25%;
+    padding-left: 12%;
     cursor: default;
 }
 
 .main .top {
-    background-color: #263238;
-    color: #ffffff;
-    border-radius: .55rem !important;
-    margin-bottom: 5rem;
-    height: 15rem;
+    background-color: #ffffff;
+    color: #000000;
+    /* border-radius: .55rem !important; */
+    margin-bottom: 2rem;
+    height: 10rem;
+    border-bottom: #607d8b solid .3rem;
+}
+
+.top .bar #search_keyword {
+    border: none;
+    width: 25rem;
+    line-height: 3rem;
+    border-bottom: #607d8b solid .1rem;
+    font-size: 1.4rem;
+    padding-left: .5rem;
 }
 
 .main .no-value {
@@ -76,17 +86,23 @@
 }
 
 .top .title {
-    padding: 3rem 0 0 3rem;
+    padding: 2rem 0 0 3rem;
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 5rem;
+    margin-bottom: 1rem;
 }
 
 .bar div {
+    font-size: 1.68rem;
     display: inline-block;
     margin-right: 1.5rem;
     padding-left: 1.5rem;
     cursor: pointer;
+}
+
+.bar div div:hover {
+    color: #607d8b;
+    font-weight: bold;
 }
 
 .view {
@@ -100,10 +116,6 @@
     line-height: 5rem;
 }
 
-.view .values {
-
-}
-
 .view .values .value {
     font-size: 1.5rem;
     border-radius: .65rem !important;
@@ -113,7 +125,8 @@
 }
 
 .value:hover {
-    background-color: #cfd8dc;
+    background-color: #f5f5f5;
+    color: #607d8b;
     cursor: pointer;
 }
 

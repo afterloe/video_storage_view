@@ -11,13 +11,13 @@ class FileMeatdataManagerApp extends React.Component {
             count: 100,
             viewContentHTML: (<div className="no-value">未有信息显示</div>)
         };
-        
+
         this.loadFileMeatdata = this.loadFileMeatdata.bind(this);
         this.clickPageItem = this.clickPageItem.bind(this);
     }
 
     componentDidMount() {
-        const {page, count} = this.state;
+        const { page, count } = this.state;
         this.loadFileMeatdata(page, count);
     }
 
@@ -44,10 +44,10 @@ class FileMeatdataManagerApp extends React.Component {
         return (
             <div className="view">
                 <div className="title">
-                    <div className="col-md-1"></div>
-                    <div className="col-md-5">名称</div>
-                    <div className="col-md-2">大小</div>
-                    <div className="col-md-2">类型</div>
+                    <div className="col-md-1">序号</div>
+                    <div className="col-md-7">名称</div>
+                    <div className="col-md-1">大小</div>
+                    <div className="col-md-1">类型</div>
                     <div className="col-md-2">操作</div>
                 </div>
                 <div className="values">
@@ -56,13 +56,14 @@ class FileMeatdataManagerApp extends React.Component {
                         return (
                             <div className="value">
                                 <div className="col-md-1">{i + 1}</div>
-                                <div className="col-md-5">{fileName}</div>
-                                <div
-                                    className="col-md-2">{fileSize / 1000 > 1000 ? fileSize / 1000000 + " MB" : fileSize / 1000 + " KB"}</div>
-                                <div className="col-md-2">{file_type}</div>
+                                <div className="col-md-7">{fileName}</div>
+                                <div className="col-md-1">
+                                    {fileSize / 1000 > 1000 ? (fileSize / 1000000).toFixed(2) + " MB" : (fileSize / 1000).toFixed(2) + " KB"}
+                                </div>
+                                <div className="col-md-1">{file_type}</div>
                                 <div className="col-md-2 options">
                                     <span onClick={() => this.showVideoDetail(v)}>详情</span>
-                                    <span onClick={() => this.showModifyVideo(v)}>修改</span>
+                                    <span onClick={() => this.showModifyVideo(v)}>入库</span>
                                     <span onClick={() => this.showDeleteVideo(v)}>下架</span>
                                 </div>
                             </div>)
@@ -73,7 +74,7 @@ class FileMeatdataManagerApp extends React.Component {
     }
 
     clickPageItem(activeNum = 0) {
-        const {count} = this.state;
+        const { count } = this.state;
         this.setState({
             page: activeNum
         });
@@ -81,7 +82,7 @@ class FileMeatdataManagerApp extends React.Component {
     }
 
     render() {
-        const { data, page, count, total} = this.state;
+        const { data, page, count, total } = this.state;
         return (
             <div className="main">
 
@@ -91,6 +92,15 @@ class FileMeatdataManagerApp extends React.Component {
                         <div>
                             <div>统计分类</div>
                             <div>视频库</div>
+                            <div>
+                                <input type="text" id="search_keyword" onChange={this.inputKeyword} aria-describedby="搜索建议"
+                                    placeholder="输入关键词检索"
+                                    autoComplete="off" />
+                            </div>
+                        </div>
+                        <div className="pull-right">
+                            <div>上一页</div>
+                            <div>下一页</div>
                         </div>
                     </div>
                 </div>
