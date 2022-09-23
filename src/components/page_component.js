@@ -11,6 +11,9 @@ class PageComponent extends React.Component {
 
     renderPage(activeNum, docCount, total = 10) {
         const html = [];
+        if (activeNum == 0 && total == 0) {
+            return html;
+        }
         html.push(activeNum === 1 ? (
             <li className="disabled">
                 <span aria-label="Previous" data-reflect="1">
@@ -24,7 +27,6 @@ class PageComponent extends React.Component {
                 </span>
             </li>
         ));
-        
 
         let end = Math.ceil(total / docCount) + 1
         let pageEnd = end;
