@@ -16,6 +16,7 @@ class FileMetadataManagerApp extends React.Component {
         this.clickPageItem = this.clickPageItem.bind(this);
         this.inputKeyword = this.inputKeyword.bind(this);
         this.enterEnter = this.enterEnter.bind(this);
+        this.reflash = this.reflash.bind(this)
     }
 
     componentDidMount() {
@@ -117,6 +118,11 @@ class FileMetadataManagerApp extends React.Component {
         }
     }
 
+    reflash() {
+        this.setState({keyword: undefined, page: 1, activeNum: 1});
+        this.loadFileMetadata(1);
+    }
+
     render() {
         const { data, page, count, total, errorMsg = "" } = this.state;
         return (
@@ -128,6 +134,7 @@ class FileMetadataManagerApp extends React.Component {
                         <div>
                             <div>统计分类</div>
                             <div>视频库</div>
+                            <div onClick={this.reflash}>刷新</div>
                             <div>
                                 <input type="text" id="search_keyword" onChange={this.inputKeyword} onKeyDown={this.enterEnter} aria-describedby="搜索建议"
                                     placeholder="输入关键词检索"
