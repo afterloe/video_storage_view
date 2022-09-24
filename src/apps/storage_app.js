@@ -8,13 +8,13 @@ class StorageView extends React.Component {
     }
 
     playerVideo = video => {
-        const { id } = video;
+        const { virtual_path, file_type, id } = video;
         Req({
             method: "GET",
             url: "/backend/aip/video/player?id=" + id,
         }).then(value => {
             localStorage.setItem("video", JSON.stringify(video));
-            localStorage.setItem("src", value + "");
+            localStorage.setItem("src", SYSCFG[0] + "/" + virtual_path);
             window.location.href = "/video-storage/player.html?movie=" + guid2();
         }).catch(({ msg }) => alert(msg));
     }

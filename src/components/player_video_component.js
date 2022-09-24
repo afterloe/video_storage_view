@@ -43,7 +43,7 @@ class PlayerVideoComponent extends React.Component {
             <main className="container" style={{"padding-top": "8rem"}}>
                 <div className="row">
                     <div className="return_bar">
-                        <span className="back_btn"> {" <- "} 返回上一页 </span>
+                        <span className="back_btn" onClick={() => window.history.back()}> {" <- "} 返回上一页 </span>
                         <span className="time pull-right">{dateTime}</span>
                     </div>
                 </div>
