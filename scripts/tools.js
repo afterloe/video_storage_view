@@ -14,6 +14,10 @@
 "use strict";
 
 const bgColor = ["#009eff", "#2c88d8", "#427ed0", "#6967c1", "#9a61ba", "#b268b8", "#d974ba", "#e672b4", "#f58dbf", "#f2f2f2"];
+const SYSCFG = {
+    0: "/storage",
+    1: "/screenshot"
+};
 
 const guid2 = () => {
     const S4 = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);

@@ -111,10 +111,8 @@
     border: 0.1rem solid #ccc;
     color: #333333;
     background-color: #ffffff;
-    border-radius: .85rem !important;
-    height: 47rem;
-    line-height: 1.4;
-    margin: .5rem;
+    border-radius: .99rem !important;
+    margin: .2rem;
 }
 
 .video .title {
@@ -123,10 +121,6 @@
     text-align: left;
     padding: 1rem 2.5rem;
     color: #ffffff;
-}
-
-.detail {
-    padding: .5rem .1rem 0 .1rem;
 }
 
 .screenshot {
@@ -152,10 +146,6 @@
     height: 1rem;
 }
 
-.screenshot .image {
-    width: 85%;
-}
-
 .screenshot .next {
     width: 5%;
     height: 1rem
@@ -174,13 +164,14 @@
 .update .line {
     display: block;
     height: .2rem;
-    margin: 0 1.5rem 0.5rem 1.5rem;
+    margin: 1rem 1.2rem;
     background-color: #cccccc;
 }
 
 .update .func small {
     display: inline-block;
-    margin-top: .2rem;
+    margin-left: 1rem;
+    line-height: 3rem;
     padding-right: .8rem;
     border-right: #c6c6c6 solid .1rem;
 }

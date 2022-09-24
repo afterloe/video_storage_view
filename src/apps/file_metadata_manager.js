@@ -35,12 +35,10 @@ class FileMetadataManagerApp extends React.Component {
             url: `/backend/aip/metadata/search?keyword=${keyword}&page=${activeNum ? activeNum : page}&count=${count}`,
         }).then(value => {
             const { total, data = [] } = value;
-            that.setState({ total, data, errorMsg: "", page: 1 });
+            that.setState({ total, data, errorMsg: "", page: activeNum });
         }).catch(({ code, message }) => {
             checkErrorCode(code);
-            that.setState({
-                errorMsg: message
-            });
+            that.setState({ errorMsg: message });
         });
     }
 
