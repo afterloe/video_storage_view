@@ -113,7 +113,8 @@ class FileMetadataManagerApp extends React.Component {
     }
 
     linkedFileMetadata() {
-        const {instance } = this.state;
+        const that = this;
+        const {instance } = that.state;
         Req({
             method: "PUT",
             url: `/backend/aip/object`,
