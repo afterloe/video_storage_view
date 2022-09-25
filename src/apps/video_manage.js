@@ -154,14 +154,14 @@ class VideoManagerApp extends React.Component {
                         </div>
                         <div className="values">
                             {data ? data.map((v, i) => {
-                                const {title, size, modifyTime} = v;
+                                const {fileName, fileSize, duration} = v;
                                 return (
                                     <div className="value">
                                         <div className="col-md-1">{i + 1}</div>
-                                        <div className="col-md-4">{title}</div>
+                                        <div className="col-md-4">{fileName}</div>
                                         <div
-                                            className="col-md-2">{size / 1000 > 1000 ? size / 1000000 + " MB" : size / 1000 + " KB"}</div>
-                                        <div className="col-md-3">{modifyTime}</div>
+                                            className="col-md-2">{fileSize / 1000 > 1000 ? fileSize / 1000000 + " MB" : fileSize / 1000 + " KB"}</div>
+                                        <div className="col-md-3">{Math.ceil(duration)}</div>
                                         <div className="col-md-2 options">
                                             <span onClick={() => this.showVideoDetail(v)}>详情</span>
                                             <span onClick={() => this.showModifyVideo(v)}>修改</span>

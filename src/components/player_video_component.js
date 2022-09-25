@@ -49,7 +49,7 @@ class PlayerVideoComponent extends React.Component {
                 </div>
                 <div className="row">
                     <div className="screen">
-                        <video width="100%" controls>
+                        <video width="100%" controls x5-playsinline="true" x5-video-player-type="h5">
                             <source src={videoSrc} type="video/mp4"/>
                         </video>
                     </div>
